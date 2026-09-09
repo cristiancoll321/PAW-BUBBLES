@@ -7,7 +7,7 @@
 }
 
 .brand-header {
-  background: linear-gradient(135deg, var(--ion-color-tertiary) 0%, #34172e 100%);
+  background: linear-gradient(135deg, var(--ion-color-tertiary) 0%, #0b2b3a 100%);
   padding: 32px 24px 40px;
   color: white;
   clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
@@ -42,11 +42,11 @@
 .panel-card {
   --background: rgba(255, 255, 255, 0.96);
   background: rgba(255, 255, 255, 0.96);
-  border: 1.5px solid #eadfe0;
+  border: 1.5px solid #dce8ea;
   border-radius: 18px;
   padding: 0;
   margin: 0 0 18px;
-  box-shadow: 0 10px 20px rgba(52, 23, 46, 0.04);
+  box-shadow: 0 10px 20px rgba(11, 43, 58, 0.04);
   overflow: hidden;
 
   ion-card-header {
@@ -67,15 +67,15 @@
   ion-card-title {
     margin: 0;
     font-size: 16px;
-    color: #2b1b26;
+    color: #12313b;
     font-weight: 700;
   }
 }
 
 .mini-button {
   margin: 0;
-  --background: rgba(199, 70, 129, 0.12);
-  --background-hover: rgba(199, 70, 129, 0.18);
+  --background: rgba(46, 110, 142, 0.12);
+  --background-hover: rgba(46, 110, 142, 0.18);
   --color: var(--ion-color-primary);
   --border-radius: 999px;
   --padding-start: 12px;
@@ -113,7 +113,7 @@
 .appointment-item {
   --background: #fff;
   background: #fff;
-  border: 1.5px solid #eadfe0;
+  border: 1.5px solid #dce8ea;
   border-radius: 16px;
   padding: 0;
   margin: 0;
@@ -127,7 +127,7 @@
   ion-card-title {
     margin: 0;
     font-size: 15px;
-    color: #2b1b26;
+    color: #12313b;
     font-weight: 700;
   }
 

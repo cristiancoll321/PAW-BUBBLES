@@ -1,67 +1,66 @@
-/* Velvet & Blade — paleta */
+/* PAW & BUBBLES — paleta (spa & estética canina) */
 :root {
   color-scheme: light only;
 
-  /** primary — blade crimson (CTAs, botones principales) **/
-  --ion-color-primary: #D62839;
-  --ion-color-primary-rgb: 214, 40, 57;
+  /** primary — aqua spa (CTAs, botones principales) **/
+  --ion-color-primary: #0FA3A3;
+  --ion-color-primary-rgb: 15, 163, 163;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #bc2332;
-  --ion-color-primary-tint: #da3d4c;
+  --ion-color-primary-shade: #0c8a8a;
+  --ion-color-primary-tint: #2db4b4;
 
-  /** secondary — wine (acentos, labels, tags) **/
-  --ion-color-secondary: #7A2E4A;
-  --ion-color-secondary-rgb: 122, 46, 74;
+  /** secondary — azul profundo (acentos, labels, tags) **/
+  --ion-color-secondary: #2E6E8E;
+  --ion-color-secondary-rgb: 46, 110, 142;
   --ion-color-secondary-contrast: #ffffff;
   --ion-color-secondary-contrast-rgb: 255, 255, 255;
-  --ion-color-secondary-shade: #6b2841;
-  --ion-color-secondary-tint: #88435c;
+  --ion-color-secondary-shade: #265f7b;
+  --ion-color-secondary-tint: #3f7e9c;
 
-  /** tertiary — velvet oscuro (headers, toolbars) **/
-  --ion-color-tertiary: #241221;
-  --ion-color-tertiary-rgb: 36, 18, 33;
+  /** tertiary — teal noche (headers, toolbars) **/
+  --ion-color-tertiary: #0B2B3A;
+  --ion-color-tertiary-rgb: 11, 43, 58;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #20101d;
-  --ion-color-tertiary-tint: #3a2b38;
+  --ion-color-tertiary-shade: #0a2634;
+  --ion-color-tertiary-tint: #24404e;
 
-  /** light — porcelain (fondo general) **/
-  --ion-color-light: #FBF6F4;
-  --ion-color-light-rgb: 251, 246, 244;
-  --ion-color-light-contrast: #2B1B26;
-  --ion-color-light-contrast-rgb: 43, 27, 38;
-  --ion-color-light-shade: #dddad8;
-  --ion-color-light-tint: #fcf7f6;
+  /** light — aqua porcelana (fondo general) **/
+  --ion-color-light: #F3FAFB;
+  --ion-color-light-rgb: 243, 250, 251;
+  --ion-color-light-contrast: #12313B;
+  --ion-color-light-contrast-rgb: 18, 49, 59;
+  --ion-color-light-shade: #d7dede;
+  --ion-color-light-tint: #f4fbfc;
 
   /** medium — texto secundario / muted **/
-  --ion-color-medium: #8C7A85;
-  --ion-color-medium-rgb: 140, 122, 133;
+  --ion-color-medium: #6E8B92;
+  --ion-color-medium-rgb: 110, 139, 146;
   --ion-color-medium-contrast: #ffffff;
   --ion-color-medium-contrast-rgb: 255, 255, 255;
-  --ion-color-medium-shade: #7b6b75;
-  --ion-color-medium-tint: #988792;
+  --ion-color-medium-shade: #617a80;
+  --ion-color-medium-tint: #7d979d;
 
   /** dark — tinta (texto principal) **/
-  --ion-color-dark: #2B1B26;
-  --ion-color-dark-rgb: 43, 27, 38;
+  --ion-color-dark: #12313B;
+  --ion-color-dark-rgb: 18, 49, 59;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #261821;
-  --ion-color-dark-tint: #40323b;
+  --ion-color-dark-shade: #102b34;
+  --ion-color-dark-tint: #2b464f;
 
-  --ion-background-color: #FBF6F4;
-  --ion-text-color: #2B1B26;
+  --ion-background-color: #F3FAFB;
+  --ion-text-color: #12313B;
 
-  --vb-gradient-hero: linear-gradient(135deg, #4e1030 0%, #7a2e4a 38%, #bf1f52 100%);
-  --vb-gradient-card: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.94));
-  --vb-gradient-crimson: linear-gradient(135deg, #d62839 0%, #b31c4b 100%);
-  --vb-gold-light: #f6d79d;
-  --vb-gold-dark: #b86d19;
-  --vb-card-border: 1px solid rgba(122, 46, 74, 0.12);
-  --vb-shadow-luxury: 0 18px 40px rgba(36, 18, 33, 0.12);
-  --vb-radius-sm: 10px;
-  --vb-radius-md: 14px;
-  --vb-radius-lg: 18px;
+  --pb-gradient-hero: linear-gradient(135deg, #0b2b3a 0%, #12726f 45%, #1fb6a6 100%);
+  --pb-gradient-card: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.94));
+  --pb-gradient-accent: linear-gradient(135deg, #14b3b3 0%, #0c8a8a 100%);
+  --pb-gold-light: #ffe0b0;
+  --pb-gold-dark: #e08a3c;
+  --pb-card-border: 1px solid rgba(46, 110, 142, 0.14);
+  --pb-shadow-luxury: 0 18px 40px rgba(11, 43, 58, 0.12);
+  --pb-radius-sm: 10px;
+  --pb-radius-md: 14px;
+  --pb-radius-lg: 18px;
 }
-

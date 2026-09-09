@@ -34,8 +34,8 @@ describe('AppointmentsPage', () => {
       JSON.stringify([
         {
           id: 1,
-          service: 'Corte de Precisión',
-          professional: 'Mateo Rivas · Barbería de Autor',
+          service: 'Baño con Hidromasaje',
+          professional: 'Valentina Ríos · Hidroterapia & Baños',
           date: 'Hoy 29',
           time: '11:15',
           duration: '45 min',
@@ -46,7 +46,7 @@ describe('AppointmentsPage', () => {
     );
     build();
     expect(component.activeAppointments.length).toBe(1);
-    expect(component.activeAppointments[0].service).toBe('Corte de Precisión');
+    expect(component.activeAppointments[0].service).toBe('Baño con Hidromasaje');
   });
 
   it('cancelar una cita la saca de "Activas" y la marca Cancelado en localStorage', async () => {
@@ -55,8 +55,8 @@ describe('AppointmentsPage', () => {
       JSON.stringify([
         {
           id: 1,
-          service: 'Corte de Precisión',
-          professional: 'Mateo Rivas · Barbería de Autor',
+          service: 'Baño con Hidromasaje',
+          professional: 'Valentina Ríos · Hidroterapia & Baños',
           date: 'Hoy 29',
           time: '11:15',
           duration: '45 min',

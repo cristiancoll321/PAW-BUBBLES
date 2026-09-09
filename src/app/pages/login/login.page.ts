@@ -73,11 +73,11 @@ export class LoginPage {
     this.triggerHaptic();
 
     if (type === 'cliente') {
-      this.email = 'cliente.vip@velvetblade.com';
-      this.password = 'Velvet2026*';
+      this.email = 'tutor.vip@pawbubbles.com';
+      this.password = 'PawBubbles2026*';
     } else {
-      this.email = 'master.barber@velvetblade.com';
-      this.password = 'BladeMaster2026*';
+      this.email = 'groomer.master@pawbubbles.com';
+      this.password = 'GroomMaster2026*';
     }
 
     this.errorMessage = '';
@@ -103,8 +103,8 @@ export class LoginPage {
     }
 
     const defaultAccounts: Record<string, { password: string; userType: 'cliente' | 'especialista'; fullName: string }> = {
-      'cliente.vip@velvetblade.com': { password: 'Velvet2026*', userType: 'cliente', fullName: 'Cliente VIP' },
-      'master.barber@velvetblade.com': { password: 'BladeMaster2026*', userType: 'especialista', fullName: 'Master Barber' },
+      'tutor.vip@pawbubbles.com': { password: 'PawBubbles2026*', userType: 'cliente', fullName: 'Tutor VIP' },
+      'groomer.master@pawbubbles.com': { password: 'GroomMaster2026*', userType: 'especialista', fullName: 'Groomer Master' },
     };
 
     let localUsers: Array<{ email: string; password: string; fullName?: string; userType?: 'cliente' | 'especialista' }> = [];

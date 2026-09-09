@@ -110,8 +110,8 @@ export class RegisterPage {
     }
 
     const defaultAccounts: string[] = [
-      'cliente.vip@velvetblade.com',
-      'master.barber@velvetblade.com'
+      'tutor.vip@pawbubbles.com',
+      'groomer.master@pawbubbles.com'
     ];
 
     let localUsers: Array<{ email: string; password: string; fullName: string; phone: string; userType: string }> = [];

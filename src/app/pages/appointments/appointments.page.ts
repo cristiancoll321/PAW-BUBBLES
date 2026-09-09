@@ -70,8 +70,8 @@ export class AppointmentsPage implements OnInit {
   historyAppointments: Appointment[] = [
     {
       id: 3,
-      service: 'Afeitado clásico',
-      professional: 'Mateo · Barbería',
+      service: 'Baño con Hidromasaje',
+      professional: 'Valentina · Hidroterapia',
       date: 'Lunes 26',
       time: '9:00 AM',
       duration: '30 min',
@@ -80,8 +80,8 @@ export class AppointmentsPage implements OnInit {
     },
     {
       id: 4,
-      service: 'Pedicure hidratante',
-      professional: 'Sofía · Spa',
+      service: 'Corte de Raza',
+      professional: 'Camila · Estética',
       date: 'Miércoles 21',
       time: '4:00 PM',
       duration: '50 min',

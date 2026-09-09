@@ -3,14 +3,15 @@
  *  PUNTO C — Pantalla "Selección de Servicio y Estación"
  * ============================================================================
  *
- *  Rol dentro del flujo de la app (Velvet & Blade):
+ *  Rol dentro del flujo de la app (PAW & BUBBLES — spa & estética canina):
  *
  *      Login / Registro  ──▶  [ ESTA PANTALLA ]  ──▶  Punto D (Horario)
  *
  *  Qué hace el usuario aquí:
- *    1. Elige una CATEGORÍA  ("Barbería de Autor" | "Spa de Uñas").
+ *    1. Elige una CATEGORÍA  ("Hidroterapia & Baños" | "Estética & Estilismo").
  *    2. Elige un SERVICIO dentro de esa categoría (define duración y precio).
- *    3. Elige una ESTACIÓN / PROFESIONAL disponible para ese servicio.
+ *    3. Elige una ESTACIÓN / PROFESIONAL disponible para ese servicio
+ *       (tinas de hidroterapia o mesas de estética, con su groomer).
  *    4. Pulsa "Continuar a Horario" → se persiste la selección y se navega
  *       a /schedule (Punto D).
  *
@@ -42,12 +43,11 @@ import { IonContent, IonIcon } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import {
   cutOutline,
-  colorPaletteOutline,
+  waterOutline,
   sparklesOutline,
   happyOutline,
-  flameOutline,
-  handLeftOutline,
-  footstepsOutline,
+  bandageOutline,
+  heartOutline,
   brushOutline,
   timeOutline,
   arrowForwardOutline,
@@ -63,8 +63,8 @@ import {
 // bloquean el flujo (mismo patrón que login.page.ts y register.page.ts).
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
-/** Las dos líneas de negocio del local. Se usa como clave de filtrado. */
-type Category = 'barberia' | 'unas';
+/** Las dos líneas de servicio del spa. Se usa como clave de filtrado. */
+type Category = 'hidroterapia' | 'estetica';
 
 /** Estado operativo de una estación en este momento. */
 type StationStatus = 'disponible' | 'ocupado';
@@ -90,12 +90,12 @@ interface Service {
 }
 
 /**
- * Una estación física (sillón / mesa) y el profesional asignado a ella.
+ * Una estación física (tina / mesa) y el groomer asignado a ella.
  * Solo se pueden seleccionar las que tienen `status === 'disponible'`.
  */
 interface Station {
   id: string;
-  /** Etiqueta visible del puesto: "Sillón 1", "Mesa 2"... */
+  /** Etiqueta visible del puesto: "Tina 1", "Mesa 2"... */
   name: string;
   professional: string;
   /** Iniciales para el avatar circular cuando no hay foto. */
@@ -123,8 +123,8 @@ export class ServiceSelectionPage implements OnInit {
   /** Nombre de pila del usuario para el saludo. Se rellena en ngOnInit desde localStorage. */
   userName = '';
 
-  /** Categoría actualmente activa en el selector superior. Arranca en "barberia". */
-  activeCategory: Category = 'barberia';
+  /** Categoría actualmente activa en el selector superior. Arranca en "hidroterapia". */
+  activeCategory: Category = 'hidroterapia';
 
   /** Servicio elegido por el usuario. `null` = paso 1 aún sin completar. */
   selectedService: Service | null = null;
@@ -138,8 +138,8 @@ export class ServiceSelectionPage implements OnInit {
 
   /** Traducción Category → etiqueta visible. Evita repetir strings en el template. */
   readonly categoryLabels: Record<Category, string> = {
-    barberia: 'Barbería de Autor',
-    unas: 'Spa de Uñas'
+    hidroterapia: 'Hidroterapia & Baños',
+    estetica: 'Estética & Estilismo'
   };
 
   /**
@@ -149,133 +149,133 @@ export class ServiceSelectionPage implements OnInit {
    */
   readonly services: Service[] = [
     {
-      id: 'corte-precision',
-      name: 'Corte de Precisión',
-      description: 'Corte de autor personalizado con acabado a navaja y styling final.',
+      id: 'bano-hidromasaje',
+      name: 'Baño con Hidromasaje',
+      description: 'Tina de hidroterapia con sales minerales, masaje circulatorio y secado suave.',
       durationMin: 45,
-      price: '$45.000',
-      category: 'barberia',
-      icon: 'cut-outline'
+      price: '$55.000',
+      category: 'hidroterapia',
+      icon: 'water-outline'
     },
     {
-      id: 'perfilado-barba',
-      name: 'Perfilado de Barba',
-      description: 'Diseño de barba, alineado con toalla caliente y aceites nutritivos.',
-      durationMin: 30,
-      price: '$30.000',
-      category: 'barberia',
+      id: 'ozonoterapia',
+      name: 'Ozonoterapia',
+      description: 'Baño con agua ozonizada para piel sensible, dermatitis y control de olores.',
+      durationMin: 40,
+      price: '$65.000',
+      category: 'hidroterapia',
       icon: 'sparkles-outline'
     },
     {
-      id: 'ritual-toalla',
-      name: 'Ritual de Toalla Caliente',
-      description: 'Afeitado clásico completo con vapor, toalla caliente y masaje facial.',
-      durationMin: 40,
-      price: '$38.000',
-      category: 'barberia',
-      icon: 'flame-outline'
+      id: 'bano-medicado',
+      name: 'Baño Medicado',
+      description: 'Champú dermatológico para alergias y hongos, con enjuague acondicionador.',
+      durationMin: 35,
+      price: '$48.000',
+      category: 'hidroterapia',
+      icon: 'bandage-outline'
     },
     {
-      id: 'tratamiento-facial',
-      name: 'Tratamiento Facial',
-      description: 'Limpieza profunda, exfoliación e hidratación para piel de hombre.',
+      id: 'spa-relajante',
+      name: 'Spa Relajante',
+      description: 'Aromaterapia, masaje de patas y secado en camilla tibia para canes ansiosos.',
       durationMin: 50,
-      price: '$55.000',
-      category: 'barberia',
-      icon: 'happy-outline'
-    },
-    {
-      id: 'manicura-rusa',
-      name: 'Manicura Rusa',
-      description: 'Trabajo de cutícula en seco con torno y esmaltado de larga duración.',
-      durationMin: 60,
-      price: '$50.000',
-      category: 'unas',
-      icon: 'hand-left-outline'
-    },
-    {
-      id: 'pedicura-spa',
-      name: 'Pedicura Spa',
-      description: 'Inmersión aromática, exfoliación, masaje y esmaltado profesional.',
-      durationMin: 70,
       price: '$60.000',
-      category: 'unas',
-      icon: 'footsteps-outline'
+      category: 'hidroterapia',
+      icon: 'heart-outline'
     },
     {
-      id: 'esmaltado-permanente',
-      name: 'Esmaltado Permanente',
-      description: 'Aplicación de esmalte semipermanente con secado LED y brillo espejo.',
-      durationMin: 45,
-      price: '$40.000',
-      category: 'unas',
+      id: 'corte-raza',
+      name: 'Corte de Raza',
+      description: 'Corte a tijera y máquina según el estándar de la raza, con perfilado final.',
+      durationMin: 60,
+      price: '$70.000',
+      category: 'estetica',
+      icon: 'cut-outline'
+    },
+    {
+      id: 'deslanado',
+      name: 'Deslanado / Stripping',
+      description: 'Retiro de subpelo muerto en mantos dobles; reduce la muda en casa.',
+      durationMin: 70,
+      price: '$75.000',
+      category: 'estetica',
       icon: 'brush-outline'
+    },
+    {
+      id: 'higienico-full',
+      name: 'Higiénico Full',
+      description: 'Corte higiénico, corte de uñas, limpieza de oídos y glándulas.',
+      durationMin: 30,
+      price: '$35.000',
+      category: 'estetica',
+      icon: 'paw-outline'
     }
   ];
 
   /**
-   * Estaciones y sus profesionales.
+   * Estaciones y sus groomers.
    * Regla de emparejamiento: una estación aparece para un servicio solo si
    * comparten `category`. Las "ocupado" se muestran pero quedan deshabilitadas.
    */
   readonly stations: Station[] = [
     {
-      id: 'sillon-1',
-      name: 'Sillón 1',
-      professional: 'Mateo Rivas',
-      initials: 'MR',
-      role: 'Barbero de Autor',
-      category: 'barberia',
+      id: 'tina-1',
+      name: 'Tina 1',
+      professional: 'Valentina Ríos',
+      initials: 'VR',
+      role: 'Hidroterapeuta Canina',
+      category: 'hidroterapia',
       status: 'disponible',
       rating: 4.9
     },
     {
-      id: 'sillon-2',
-      name: 'Sillón 2',
-      professional: 'Julián Ossa',
-      initials: 'JO',
-      role: 'Barber Senior',
-      category: 'barberia',
+      id: 'tina-2',
+      name: 'Tina 2',
+      professional: 'Mateo Salas',
+      initials: 'MS',
+      role: 'Especialista en Piel',
+      category: 'hidroterapia',
       status: 'disponible',
       rating: 4.8
     },
     {
-      id: 'sillon-3',
-      name: 'Sillón 3',
-      professional: 'Andrés Kem',
+      id: 'tina-3',
+      name: 'Tina 3',
+      professional: 'Andrés Kuan',
       initials: 'AK',
-      role: 'Especialista en Barba',
-      category: 'barberia',
+      role: 'Terapeuta de Ozono',
+      category: 'hidroterapia',
       status: 'ocupado',
       rating: 4.7
     },
     {
       id: 'mesa-1',
       name: 'Mesa 1',
-      professional: 'Valentina Ruiz',
-      initials: 'VR',
-      role: 'Nail Artist Master',
-      category: 'unas',
+      professional: 'Camila Prieto',
+      initials: 'CP',
+      role: 'Groomer Master',
+      category: 'estetica',
       status: 'disponible',
       rating: 5.0
     },
     {
       id: 'mesa-2',
       name: 'Mesa 2',
-      professional: 'Camila Soto',
-      initials: 'CS',
-      role: 'Manicurista Rusa',
-      category: 'unas',
+      professional: 'Daniel Ortiz',
+      initials: 'DO',
+      role: 'Estilista de Razas',
+      category: 'estetica',
       status: 'ocupado',
       rating: 4.8
     },
     {
       id: 'mesa-3',
       name: 'Mesa 3',
-      professional: 'Daniela Franco',
-      initials: 'DF',
-      role: 'Pedicura Spa',
-      category: 'unas',
+      professional: 'Laura Méndez',
+      initials: 'LM',
+      role: 'Estilista Canina',
+      category: 'estetica',
       status: 'disponible',
       rating: 4.9
     }
@@ -287,12 +287,11 @@ export class ServiceSelectionPage implements OnInit {
     // (p. ej. `cutOutline` aquí ↔ name="cut-outline" en el template).
     addIcons({
       cutOutline,
-      colorPaletteOutline,
+      waterOutline,
       sparklesOutline,
       happyOutline,
-      flameOutline,
-      handLeftOutline,
-      footstepsOutline,
+      bandageOutline,
+      heartOutline,
       brushOutline,
       timeOutline,
       arrowForwardOutline,
@@ -469,9 +468,6 @@ export class ServiceSelectionPage implements OnInit {
     } catch { /* si no se pudo persistir, igualmente se navega */ }
 
     // Navegación al Punto D (Revisar Horario y Disponibilidad).
-    // HOY /schedule es un placeholder en app.routes.ts que redirige de vuelta
-    // a esta pantalla; al integrar la rama desarrollo-cristian apuntará a la
-    // pantalla real de horario.
     this.router.navigateByUrl('/schedule');
   }
 }

@@ -3,7 +3,7 @@
  *  PUNTO D — Pantalla "Revisar Horario y Disponibilidad"
  * ============================================================================
  *
- *  Rol dentro del flujo de la app (Velvet & Blade):
+ *  Rol dentro del flujo de la app (PAW & BUBBLES):
  *
  *      Punto C (Selección de Servicio)  ──▶  [ ESTA PANTALLA ]  ──▶  Punto E (Agendados)
  *
@@ -98,7 +98,7 @@ interface SelectedService {
   serviceName: string;
   durationMin: number;
   price: string;
-  category: 'barberia' | 'unas';
+  category: 'hidroterapia' | 'estetica';
   stationName: string;
   professional: string;
 }
@@ -147,8 +147,8 @@ export class SchedulePage implements OnInit {
 
   /** Traducción categoría → etiqueta visible (para el resumen). */
   private readonly categoryLabels: Record<SelectedService['category'], string> = {
-    barberia: 'Barbería de Autor',
-    unas: 'Spa de Uñas'
+    hidroterapia: 'Hidroterapia & Baños',
+    estetica: 'Estética & Estilismo'
   };
 
   // ---------------------------------------------------------------------------

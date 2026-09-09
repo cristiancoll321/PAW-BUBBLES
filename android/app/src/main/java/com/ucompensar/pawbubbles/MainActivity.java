@@ -1,4 +1,4 @@
-package com.ucompensar.velvetblade;
+package com.ucompensar.pawbubbles;
 
 import com.getcapacitor.BridgeActivity;
 

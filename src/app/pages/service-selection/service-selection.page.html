@@ -4,7 +4,7 @@
   ============================================================================
    Estructura visual (de arriba a abajo):
      1. page-topbar ....... marca + saludo + indicador de pasos (1·2·3)
-     2. category-switch ... conmutador Barbería / Spa de Uñas
+     2. category-switch ... conmutador Hidroterapia / Estética
      3. block (servicios) . lista filtrada por categoría  -> selectService()
      4. block (estación) .. solo visible si YA hay servicio -> selectStation()
      5. summary-bar ....... resumen fijo + botón "Continuar a Horario"
@@ -24,14 +24,14 @@
       <!-- ============================================================= -->
       <header class="page-topbar">
         <div class="brand-mini">
-          <div class="mini-logo">V&amp;B</div>
+          <div class="mini-logo">P&amp;B</div>
           <div class="brand-lines">
-            <span class="eyebrow">Velvet &amp; Blade</span>
-            <h1 class="page-title">Selección de Servicio y Estación</h1>
+            <span class="eyebrow">PAW &amp; BUBBLES</span>
+            <h1 class="page-title">Elige el servicio y la estación</h1>
           </div>
           <!-- Acceso al perfil del tutor y a la gestión de mascotas (Bonus 1) -->
           <button type="button" class="profile-link" (click)="goToProfile()"
-            style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(214,40,57,0.08);border:1px solid rgba(214,40,57,0.22);color:var(--ion-color-primary);font:inherit;font-size:12px;font-weight:700;padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;">
+            style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(15,163,163,0.08);border:1px solid rgba(15,163,163,0.22);color:var(--ion-color-primary);font:inherit;font-size:12px;font-weight:700;padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;">
             <ion-icon name="paw-outline"></ion-icon>
             Mis mascotas
           </button>
@@ -76,14 +76,14 @@
       <!-- 2. CONMUTADOR DE CATEGORÍA  ->  setCategory()                 -->
       <!-- ============================================================= -->
       <div class="category-switch">
-        <button type="button" class="cat-btn" [class.active]="activeCategory === 'barberia'"
-          (click)="setCategory('barberia')">
-          <ion-icon name="cut-outline"></ion-icon>
-          <span>Barbería de Autor</span>
+        <button type="button" class="cat-btn" [class.active]="activeCategory === 'hidroterapia'"
+          (click)="setCategory('hidroterapia')">
+          <ion-icon name="water-outline"></ion-icon>
+          <span>Hidroterapia &amp; Baños</span>
         </button>
-        <button type="button" class="cat-btn" [class.active]="activeCategory === 'unas'" (click)="setCategory('unas')">
-          <ion-icon name="color-palette-outline"></ion-icon>
-          <span>Spa de Uñas</span>
+        <button type="button" class="cat-btn" [class.active]="activeCategory === 'estetica'" (click)="setCategory('estetica')">
+          <ion-icon name="cut-outline"></ion-icon>
+          <span>Estética &amp; Estilismo</span>
         </button>
       </div>
 

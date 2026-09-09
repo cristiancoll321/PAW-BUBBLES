@@ -14,12 +14,12 @@ describe('SchedulePage', () => {
       JSON.stringify({
         serviceId: 'corte-precision',
         stationId: 'sillon-1',
-        serviceName: 'Corte de Precisión',
+        serviceName: 'Baño con Hidromasaje',
         durationMin: 45,
         price: '$45.000',
-        category: 'barberia',
-        stationName: 'Sillón 1',
-        professional: 'Mateo Rivas',
+        category: 'hidroterapia',
+        stationName: 'Tina 1',
+        professional: 'Valentina Ríos',
       })
     );
 
@@ -42,7 +42,7 @@ describe('SchedulePage', () => {
   });
 
   it('lee la selección del Punto C desde localStorage', () => {
-    expect(component.selection?.serviceName).toBe('Corte de Precisión');
+    expect(component.selection?.serviceName).toBe('Baño con Hidromasaje');
   });
 
   it('confirmar cita añade un registro a vb_appointments', async () => {
@@ -51,7 +51,7 @@ describe('SchedulePage', () => {
 
     const stored = JSON.parse(localStorage.getItem('vb_appointments') ?? '[]');
     expect(stored.length).toBe(1);
-    expect(stored[0].service).toBe('Corte de Precisión');
+    expect(stored[0].service).toBe('Baño con Hidromasaje');
     expect(stored[0].time).toBe('11:15');
     expect(stored[0].status).toBe('Confirmado');
     expect(navigateSpy).toHaveBeenCalledWith('/appointments');

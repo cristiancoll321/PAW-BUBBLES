@@ -1,4 +1,4 @@
-# Flujo de datos — Velvet & Blade
+# Flujo de datos — PAW & BUBBLES
 
 Fecha: 2026-08-30 · Rama: `desarrollo-oscar`
 Actualizado: 2026-08-30 (sesión 3) — Puntos D y E portados desde
@@ -71,14 +71,14 @@ en su `ngOnInit`.
   - `login.page.ts`: para validar correo + contraseña.
 - Además, `login.page.ts` tiene **2 cuentas demo hardcodeadas** que funcionan
   aunque `vb_users` esté vacío:
-  - `cliente.vip@velvetblade.com` / `Velvet2026*` → `cliente`
-  - `master.barber@velvetblade.com` / `BladeMaster2026*` → `especialista`
+  - `tutor.vip@pawbubbles.com` / `PawBubbles2026*` → `cliente`
+  - `groomer.master@pawbubbles.com` / `GroomMaster2026*` → `especialista`
 
 ### 2.2 `vb_current_user` — sesión activa
 
 ```jsonc
 {
-  "email":    "cliente.vip@velvetblade.com",
+  "email":    "tutor.vip@pawbubbles.com",
   "name":     "Cliente VIP",        // nombre completo
   "userType": "cliente"             // decide a qué pantalla se redirige
 }
@@ -132,7 +132,7 @@ Forma exacta que hace `unshift` `schedule.page.ts` → `confirmSelection()`
   "serviceId":    "corte-precision",      // para resolver contra catálogo si hiciera falta
   "stationId":    "sillon-1",
   "service":      "Corte de Precisión",   // = serviceName del Punto C
-  "professional": "Mateo Rivas · Barbería de Autor",  // profesional + categoría
+  "professional": "Valentina Ríos · Hidroterapia & Baños",  // profesional + categoría
   "date":         "Hoy 29",               // label + número del día elegido
   "time":         "11:15",
   "duration":     "45 min",               // durationMin + " min"

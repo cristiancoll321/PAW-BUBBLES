@@ -1,10 +1,10 @@
-# Velvet & Blade
+# PAW & BUBBLES
 
-Aplicación híbrida de citas para barbería y spa de uñas, desarrollada con Angular + Ionic + Capacitor.
+Aplicación híbrida de reserva para un spa & estética canina (hidroterapia, ozonoterapia y estilismo), desarrollada con Angular + Ionic + Capacitor.
 
 ## Descripción general
 
-Velvet & Blade es una app de reserva de servicios que permite a un cliente:
+PAW & BUBBLES es una app de reserva de servicios que permite a un tutor:
 
 - iniciar sesión o registrarse,
 - seleccionar una categoría de servicio,
@@ -13,7 +13,7 @@ Velvet & Blade es una app de reserva de servicios que permite a un cliente:
 - confirmar una cita,
 - consultar sus servicios agendados.
 
-La aplicación está pensada como flujo de negocio de una barbería premium, con una UX visual orientada a lujo y una estructura modular por pantallas.
+La aplicación está pensada como flujo de negocio de un spa canino premium, con una UX visual orientada al cuidado y una estructura modular por pantallas.
 
 ---
 
@@ -63,7 +63,7 @@ npm -v
 
 ```bash
 git clone https://github.com/TamperiG92/Entrega_hibridas.git
-git checkout desarrollo-cristian
+git checkout desarrollo-cristian  # rama de trabajo
 ```
 
 2. Instala dependencias:
@@ -103,7 +103,7 @@ npm run lint       # ng lint
 ## Arquitectura del proyecto
 
 ```text
-velvet-blade/
+paw-bubbles/
 ├── android/                     # proyecto Android nativo generado por Capacitor
 ├── src/
 │   ├── app/
@@ -164,7 +164,7 @@ La navegación principal está definida en `src/app/app.routes.ts`.
    - validación de duplicados
 
 3. Selección de servicio y estación
-   - filtro por categoría: Barbería de Autor / Spa de Uñas
+   - filtro por categoría: Hidroterapia & Baños / Estética & Estilismo
    - elección de servicio y profesional/estación disponible
    - resumen y avance al horario
 
@@ -340,7 +340,7 @@ Se puede considerar en una fase de:
 
 ## Créditos
 
-Proyecto conceptual y desarrollado para la marca Velvet & Blade.
+Proyecto conceptual y desarrollado para la marca PAW & BUBBLES.
 
 ---
 
