@@ -1,0 +1,166 @@
+<!--
+  ============================================================================
+   BONUS 2 — Template "Historial y Seguimiento en Vivo del Canino"
+  ============================================================================
+   Estructura visual (de arriba a abajo):
+     1. brand-header ...... volver + nombre/raza de la mascota + estado actual
+     2. live-panel ........ panel de trazabilidad con las 4 fases
+     3. sim-controls ...... controles para mover la trazabilidad (simulación)
+     4. visit-form ........ mini-formulario para archivar / añadir visita
+     5. history ........... histórico de visitas (fecha · servicio · valor)
+
+   Estado (todo del componente .ts):
+     pet, record, phases, visitFormOpen, visitForm, visitError
+  ============================================================================
+-->
+<ion-content [fullscreen]="true" class="tracking-content" *ngIf="pet">
+  <div class="brand-header">
+    <button type="button" class="ghost-btn back-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Perfil
+    </button>
+
+    <span class="eyebrow">Seguimiento en vivo</span>
+    <h1 class="brand-title">{{ pet.name }}</h1>
+    <p class="brand-sub">{{ pet.breed }}<ng-container *ngIf="pet.ageApprox"> · {{ pet.ageApprox }}</ng-container></p>
+
+    <div class="status-strip" [class.off]="!inFacility">
+      <span class="live-dot"></span>
+      <span class="status-text">
+        <ng-container *ngIf="inFacility">{{ currentPhaseTitle }}</ng-container>
+        <ng-container *ngIf="!inFacility">Fuera de la sede</ng-container>
+      </span>
+      <span class="status-time" *ngIf="inFacility">Actualizado {{ lastUpdateLabel }}</span>
+    </div>
+  </div>
+
+  <div class="page-wrap">
+    <!-- ============================================================= -->
+    <!-- 2. PANEL DE TRAZABILIDAD — 4 fases                           -->
+    <!-- ============================================================= -->
+    <section class="live-panel">
+      <h2>Fase del tratamiento</h2>
+
+      <ol class="phase-track">
+        <li
+          *ngFor="let phase of phases; let i = index"
+          class="phase"
+          [ngClass]="phaseState(i)">
+          <span class="phase-node">
+            <ion-icon
+              [name]="phaseState(i) === 'done' ? 'checkmark-outline' : phase.icon"></ion-icon>
+          </span>
+          <span class="phase-body">
+            <span class="phase-index">Fase {{ i + 1 }}</span>
+            <strong class="phase-title">{{ phase.title }}</strong>
+            <span class="phase-detail">{{ phase.detail }}</span>
+          </span>
+          <span class="phase-flag" *ngIf="phaseState(i) === 'active'">Aquí ahora</span>
+        </li>
+      </ol>
+
+      <p class="ready-note" *ngIf="isReady && inFacility">
+        <ion-icon name="happy-outline"></ion-icon>
+        {{ pet.name }} está en la zona lounge, listo para la entrega.
+      </p>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 3. CONTROLES DE SIMULACIÓN (lado especialista, aún no existe) -->
+    <!-- ============================================================= -->
+    <section class="sim-controls">
+      <span class="sim-label">Actualizar trazabilidad</span>
+      <div class="sim-buttons">
+        <button type="button" class="primary-btn" *ngIf="!inFacility" (click)="checkIn()">
+          <ion-icon name="paw-outline"></ion-icon>
+          Registrar ingreso
+        </button>
+
+        <button
+          type="button"
+          class="primary-btn"
+          *ngIf="inFacility && !isReady"
+          (click)="advancePhase()">
+          <ion-icon name="arrow-forward-outline"></ion-icon>
+          Avanzar fase
+        </button>
+
+        <button type="button" class="ghost-btn light" *ngIf="inFacility" (click)="resetPhase()">
+          <ion-icon name="refresh-outline"></ion-icon>
+          Reiniciar
+        </button>
+
+        <button type="button" class="ghost-btn light" *ngIf="inFacility" (click)="openArchiveForm()">
+          <ion-icon name="archive-outline"></ion-icon>
+          Finalizar y archivar
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 4. MINI-FORMULARIO: añadir / archivar visita                 -->
+    <!-- ============================================================= -->
+    <section class="visit-form" *ngIf="visitFormOpen">
+      <div class="visit-form-head">
+        <h3>Archivar visita en curso</h3>
+        <button type="button" class="icon-btn" (click)="closeVisitForm()" aria-label="Cerrar">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="v-date">Fecha de visita</label>
+        <input id="v-date" type="text" [(ngModel)]="visitForm.date" placeholder="Ej: 8 sep 2026" />
+      </div>
+      <div class="field">
+        <label for="v-service">Servicio tomado</label>
+        <input id="v-service" type="text" [(ngModel)]="visitForm.service"
+          placeholder="Ej: Hidroterapia + estilismo" />
+      </div>
+      <div class="field">
+        <label for="v-price">Valor cancelado</label>
+        <input id="v-price" type="text" inputmode="numeric" [(ngModel)]="visitForm.price"
+          placeholder="Ej: $90.000" />
+      </div>
+
+      <p class="form-error" *ngIf="visitError">{{ visitError }}</p>
+
+      <div class="form-actions">
+        <button type="button" class="ghost-btn" (click)="closeVisitForm()">Cancelar</button>
+        <button type="button" class="primary-btn" (click)="saveVisit(true)">
+          <ion-icon name="archive-outline"></ion-icon>
+          Archivar y liberar
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 5. HISTÓRICO DE VISITAS PREVIAS                              -->
+    <!-- ============================================================= -->
+    <section class="history">
+      <div class="section-header">
+        <h2>Historial de visitas</h2>
+        <button type="button" class="pill-btn" (click)="openArchiveForm()" *ngIf="!visitFormOpen">
+          <ion-icon name="add-outline"></ion-icon>
+          Añadir
+        </button>
+      </div>
+
+      <div class="visit-list" *ngIf="hasHistory; else emptyHistory">
+        <article class="visit-item" *ngFor="let visit of record.history">
+          <div class="visit-main">
+            <strong class="visit-service">{{ visit.service }}</strong>
+            <span class="visit-date">
+              <ion-icon name="calendar-outline"></ion-icon>{{ visit.date }}
+            </span>
+          </div>
+          <span class="visit-price">{{ visit.price }}</span>
+        </article>
+      </div>
+
+      <ng-template #emptyHistory>
+        <p class="empty-state">Todavía no hay visitas registradas para {{ pet.name }}.</p>
+      </ng-template>
+    </section>
+  </div>
+</ion-content>

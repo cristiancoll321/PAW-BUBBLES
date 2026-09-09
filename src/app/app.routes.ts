@@ -59,6 +59,20 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/appointments/appointments.page').then(m => m.AppointmentsPage)
   },
   {
+    // BONUS 1 — Perfil del tutor + Registro y gestión de mascotas.
+    // Lee vb_current_user; escribe/lee vb_pets. "Ver seguimiento" deja el id en
+    // vb_tracking_pet y navega a /pet-tracking (ver FLUJO-DE-DATOS.md).
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage)
+  },
+  {
+    // BONUS 2 — Historial y seguimiento en vivo del canino.
+    // Lee vb_tracking_pet + vb_pets; escribe/lee vb_pet_tracking. Si no hay
+    // mascota seleccionada redirige a /profile.
+    path: 'pet-tracking',
+    loadComponent: () => import('./pages/pet-tracking/pet-tracking.page').then(m => m.PetTrackingPage)
+  },
+  {
     // Home del perfil "Especialista" — pantalla no incluida en el alcance actual.
     // login/registro redirigen aquí cuando userType === 'especialista'.
     path: 'specialist-home',

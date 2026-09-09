@@ -1,9 +1,15 @@
 <ion-content [fullscreen]="true" class="appointments-content">
   <div class="brand-header">
-    <ion-button type="button" fill="clear" class="mini-button" (click)="logout()" style="position: absolute; top: 16px; right: 16px; --color: white;">
-      <ion-icon slot="start" name="log-out-outline"></ion-icon>
-      Salir
-    </ion-button>
+    <div style="position: absolute; top: 16px; right: 16px; display: flex; gap: 6px;">
+      <ion-button type="button" fill="clear" class="mini-button" (click)="goToProfile()" style="--color: white;">
+        <ion-icon slot="start" name="paw-outline"></ion-icon>
+        Mis mascotas
+      </ion-button>
+      <ion-button type="button" fill="clear" class="mini-button" (click)="logout()" style="--color: white;">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Salir
+      </ion-button>
+    </div>
 
     <ion-label class="eyebrow">Mi agenda</ion-label>
     <h1 class="brand-title">Servicios agendados</h1>

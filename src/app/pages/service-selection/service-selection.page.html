@@ -29,6 +29,12 @@
             <span class="eyebrow">Velvet &amp; Blade</span>
             <h1 class="page-title">Selección de Servicio y Estación</h1>
           </div>
+          <!-- Acceso al perfil del tutor y a la gestión de mascotas (Bonus 1) -->
+          <button type="button" class="profile-link" (click)="goToProfile()"
+            style="margin-left:auto;display:inline-flex;align-items:center;gap:6px;background:rgba(214,40,57,0.08);border:1px solid rgba(214,40,57,0.22);color:var(--ion-color-primary);font:inherit;font-size:12px;font-weight:700;padding:8px 12px;border-radius:999px;cursor:pointer;white-space:nowrap;">
+            <ion-icon name="paw-outline"></ion-icon>
+            Mis mascotas
+          </button>
         </div>
         <!-- El nombre solo se muestra si se pudo leer de vb_current_user -->
         <p class="page-desc">

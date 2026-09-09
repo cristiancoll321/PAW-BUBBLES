@@ -1,0 +1,185 @@
+<!--
+  ============================================================================
+   BONUS 1 — Template "Perfil del Tutor + Gestión de Mascotas"
+  ============================================================================
+   Estructura visual (de arriba a abajo):
+     1. brand-header ...... botón volver + datos de cuenta del tutor
+     2. section "Mis mascotas" con botón "Registrar"
+     3. form-card ......... alta / edición de ficha (toggle con formOpen)
+     4. pet-list .......... una ficha individual por mascota
+        (o empty-state si el tutor aún no registró ninguna)
+
+   Estado (todo del componente .ts):
+     tutorName, tutorEmail, pets, formOpen, editingId, formError, form
+  ============================================================================
+-->
+<ion-content [fullscreen]="true" class="profile-content">
+  <div class="brand-header">
+    <button type="button" class="ghost-btn back-btn" (click)="goBack()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+      Volver
+    </button>
+
+    <span class="eyebrow">Mi perfil</span>
+    <h1 class="brand-title">Hola<ng-container *ngIf="tutorName">, {{ tutorName }}</ng-container></h1>
+    <p class="brand-sub" *ngIf="tutorEmail">{{ tutorEmail }}</p>
+    <p class="brand-sub">
+      Registra a tus caninos y mantén su ficha de cuidado al día para cada visita al spa.
+    </p>
+  </div>
+
+  <div class="page-wrap">
+    <!-- ============================================================= -->
+    <!-- 2. ENCABEZADO DE SECCIÓN + BOTÓN REGISTRAR                    -->
+    <!-- ============================================================= -->
+    <div class="section-header">
+      <div>
+        <h2>Mis mascotas</h2>
+        <span class="count">{{ pets.length }} registrada(s)</span>
+      </div>
+      <button
+        *ngIf="!formOpen"
+        type="button"
+        class="pill-btn"
+        (click)="openNewForm()">
+        <ion-icon name="add-outline"></ion-icon>
+        Registrar
+      </button>
+    </div>
+
+    <!-- ============================================================= -->
+    <!-- 3. FORMULARIO DE ALTA / EDICIÓN  (toggle: formOpen)          -->
+    <!-- ============================================================= -->
+    <section class="form-card" *ngIf="formOpen">
+      <div class="form-card-head">
+        <h3>{{ editingId !== null ? 'Editar ficha' : 'Nueva mascota' }}</h3>
+        <button type="button" class="icon-btn" (click)="closeForm()" aria-label="Cerrar">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="pet-name">Nombre del canino *</label>
+        <input id="pet-name" type="text" [(ngModel)]="form.name" maxlength="40"
+          placeholder="Ej: Rocky" autocomplete="off" />
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="pet-breed">Raza *</label>
+          <input id="pet-breed" type="text" [(ngModel)]="form.breed" maxlength="40"
+            placeholder="Ej: Golden Retriever" autocomplete="off" />
+        </div>
+        <div class="field">
+          <label for="pet-age">Edad aproximada</label>
+          <input id="pet-age" type="text" [(ngModel)]="form.ageApprox" maxlength="20"
+            placeholder="Ej: 3 años" autocomplete="off" />
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Talla corporal *</label>
+        <div class="chip-choices">
+          <button
+            *ngFor="let s of sizeOptions"
+            type="button"
+            class="choice"
+            [class.active]="form.size === s"
+            (click)="form.size = s">
+            {{ s }}
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pet-weight">Peso aproximado (kg)</label>
+        <input id="pet-weight" type="number" inputmode="decimal" min="0" max="120" step="0.5"
+          [(ngModel)]="form.weightKg" placeholder="Ej: 28" />
+      </div>
+
+      <div class="field">
+        <label>Temperamento *</label>
+        <div class="chip-choices">
+          <button
+            *ngFor="let t of temperamentOptions"
+            type="button"
+            class="choice"
+            [class.active]="form.temperament === t"
+            (click)="form.temperament = t">
+            {{ t }}
+          </button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="pet-notes">Observaciones especiales de cuidado</label>
+        <textarea id="pet-notes" rows="3" [(ngModel)]="form.careNotes" maxlength="240"
+          placeholder="Alergias a fragancias, sensibilidad en piel o articulaciones..."></textarea>
+      </div>
+
+      <p class="form-error" *ngIf="formError">
+        <ion-icon name="alert-circle-outline"></ion-icon>{{ formError }}
+      </p>
+
+      <div class="form-actions">
+        <button type="button" class="ghost-btn" (click)="closeForm()">Cancelar</button>
+        <button type="button" class="primary-btn" (click)="savePet()">
+          <ion-icon name="save-outline"></ion-icon>
+          {{ editingId !== null ? 'Guardar cambios' : 'Registrar mascota' }}
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================= -->
+    <!-- 4. LISTA DE FICHAS INDIVIDUALES                              -->
+    <!-- ============================================================= -->
+    <div class="pet-list" *ngIf="hasPets; else emptyPets">
+      <article class="pet-card" *ngFor="let pet of pets">
+        <header class="pet-card-head">
+          <div class="pet-avatar">
+            <ion-icon name="paw-outline"></ion-icon>
+          </div>
+          <div class="pet-id">
+            <strong class="pet-name">{{ pet.name }}</strong>
+            <span class="pet-breed">{{ pet.breed }}<ng-container *ngIf="pet.ageApprox"> · {{ pet.ageApprox }}</ng-container></span>
+          </div>
+          <div class="pet-card-actions">
+            <button type="button" class="icon-btn" (click)="editPet(pet)" aria-label="Editar">
+              <ion-icon name="create-outline"></ion-icon>
+            </button>
+            <button type="button" class="icon-btn danger" (click)="deletePet(pet)" aria-label="Eliminar">
+              <ion-icon name="trash-outline"></ion-icon>
+            </button>
+          </div>
+        </header>
+
+        <div class="pet-badges">
+          <span class="badge" [ngClass]="sizeClass(pet.size)">{{ pet.size }}</span>
+          <span class="badge neutral" *ngIf="pet.weightKg !== null">{{ pet.weightKg }} kg</span>
+          <span class="badge" [ngClass]="temperamentClass(pet.temperament)">{{ pet.temperament }}</span>
+        </div>
+
+        <div class="pet-notes" *ngIf="pet.careNotes">
+          <span class="notes-label">Cuidados especiales</span>
+          <p>{{ pet.careNotes }}</p>
+        </div>
+
+        <button type="button" class="track-btn" (click)="openTracking(pet)">
+          <ion-icon name="pulse-outline"></ion-icon>
+          Ver seguimiento en vivo
+        </button>
+      </article>
+    </div>
+
+    <ng-template #emptyPets>
+      <div class="empty-state" *ngIf="!formOpen">
+        <ion-icon name="paw-outline"></ion-icon>
+        <p>Aún no has registrado ninguna mascota.</p>
+        <button type="button" class="primary-btn" (click)="openNewForm()">
+          <ion-icon name="add-outline"></ion-icon>
+          Registrar mi primera mascota
+        </button>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

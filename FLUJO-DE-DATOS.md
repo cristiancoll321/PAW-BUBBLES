@@ -257,3 +257,81 @@ Forma exacta que hace `unshift` `schedule.page.ts` → `confirmSelection()`
   rama luego se integró completa a `desarrollo-oscar` (merge), trayendo la
   plataforma nativa Android (`android/`) y las últimas dependencias de
   Capacitor; ambas ramas comparten hoy el mismo código standalone.
+
+---
+
+## 7. Bonus — Mascotas y seguimiento en vivo
+
+Dos pantallas nuevas colgadas del perfil del tutor. Mismo patrón que el resto
+de la app: **el router no transporta estado**, cada pantalla relee
+`localStorage` en su `ngOnInit`.
+
+```
+   /service-selection ─┐                 ┌─▶ /profile ──"Ver seguimiento"──▶ /pet-tracking
+   /appointments ──────┴─"Mis mascotas"──┘     (Bonus 1)   vb_tracking_pet      (Bonus 2)
+```
+
+### 7.1 `vb_pets` — fichas de mascotas (Bonus 1)
+
+Arreglo **global** del dispositivo (mascotas de todos los tutores). La pantalla
+`profile.page.ts` filtra por `ownerEmail === vb_current_user.email` y, al
+guardar, reescribe el arreglo completo **conservando** las mascotas de otros
+tutores.
+
+| Campo         | Tipo             | Notas                                                        |
+|---------------|------------------|-------------------------------------------------------------|
+| `id`          | number           | `Date.now()` — PK local para editar / borrar / trazar       |
+| `ownerEmail`  | string           | correo del tutor dueño (enlaza con `vb_current_user.email`) |
+| `name`        | string           | Nombre del canino                                           |
+| `breed`       | string           | Raza                                                        |
+| `ageApprox`   | string           | Edad aproximada, texto libre ("3 años", "8 meses")          |
+| `size`        | string           | `Pequeña` \| `Mediana` \| `Grande` \| `Gigante`             |
+| `weightKg`    | number \| null   | Peso aproximado en kg (`null` mientras no se informa)       |
+| `temperament` | string           | `Tranquilo` \| `Ansioso` \| `Enérgico` \| `Reactivo con otros canes` |
+| `careNotes`   | string           | Observaciones de cuidado (alergias a fragancias, piel/articulaciones) |
+| `createdAt`   | string (ISO)     | Fecha de alta                                               |
+
+- **Escribe:** `profile.page.ts` → `savePet()` (alta y edición), `deletePet()`.
+- **Lee:** `profile.page.ts` (`ngOnInit`) y `pet-tracking.page.ts` (`ngOnInit`,
+  para resolver la ficha de la mascota seleccionada).
+
+### 7.2 `vb_tracking_pet` — mascota seleccionada para el panel
+
+`string` con el `id` de la mascota cuyo seguimiento se va a abrir.
+
+- **Escribe:** `profile.page.ts` → `openTracking(pet)` justo antes de navegar a
+  `/pet-tracking`.
+- **Lee:** `pet-tracking.page.ts` (`ngOnInit`). Si falta o la mascota no existe
+  en `vb_pets` → redirige a `/profile`.
+
+### 7.3 `vb_pet_tracking` — trazabilidad + histórico (Bonus 2)
+
+Objeto `{ [petId]: TrackingRecord }`:
+
+```jsonc
+{
+  "1725000000000": {
+    "currentPhase": 1,                 // -1 = fuera de la sede; 0..3 = índice de fase
+    "updatedAt": "2026-09-08T20:00:00.000Z",
+    "history": [
+      { "id": 2, "date": "12 ago 2026", "service": "Hidroterapia + Ozonoterapia", "price": "$85.000" }
+    ]
+  }
+}
+```
+
+Las **4 fases** están hardcodeadas en `pet-tracking.page.ts` (`phases`):
+`En Recepción` → `En Hidroterapia` → `En Estilismo` → `Listo para Entrega`.
+
+- **Siembra:** la primera vez que se abre una mascota sin registro, se crea con
+  `currentPhase: -1` y un **histórico de demo** de 2 visitas (no hay backend).
+- **Escribe:** `pet-tracking.page.ts` → `checkIn()`, `advancePhase()`,
+  `resetPhase()`, `saveVisit()`; y `profile.page.ts` → `deletePet()` (limpia el
+  registro huérfano).
+- **Lee:** `pet-tracking.page.ts` (`ngOnInit`).
+- **Simulación del lado especialista:** como la app aún no tiene perfil
+  "especialista", los botones "Avanzar fase" / "Reiniciar" / "Finalizar y
+  archivar" mueven la trazabilidad a mano para poder demostrar el seguimiento
+  en vivo. Con backend, estas transiciones vendrían del panel del groomer.
+- El feedback nativo (`Haptics` + `Toast`) sigue el mismo patrón que los
+  Puntos D y E, siempre en `try/catch`.

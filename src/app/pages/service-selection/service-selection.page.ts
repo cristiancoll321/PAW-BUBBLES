@@ -55,7 +55,8 @@ import {
   checkmarkOutline,
   personOutline,
   star,
-  calendarOutline
+  calendarOutline,
+  pawOutline
 } from 'ionicons/icons';
 // Haptics: vibración sutil en cada interacción. En navegador el plugin lanza
 // excepción → por eso TODAS las llamadas van envueltas en try/catch y nunca
@@ -299,8 +300,15 @@ export class ServiceSelectionPage implements OnInit {
       checkmarkOutline,
       personOutline,
       star,
-      calendarOutline
+      calendarOutline,
+      pawOutline
     });
+  }
+
+  /** Abre el perfil del tutor y la gestión de mascotas (Bonus 1). */
+  goToProfile(): void {
+    this.triggerHaptic();
+    this.router.navigateByUrl('/profile');
   }
 
   /**

@@ -21,6 +21,7 @@ import {
   calendarOutline,
   closeCircleOutline,
   hourglassOutline,
+  pawOutline,
   timeOutline, logOutOutline } from 'ionicons/icons';
 // Haptics + Toast: misma pareja de feedback nativo que usa el Punto D al
 // confirmar una cita — aquí se dispara al cancelarla. Ambos van en
@@ -90,7 +91,7 @@ export class AppointmentsPage implements OnInit {
   ];
 
   constructor(private readonly router: Router) {
-    addIcons({logOutOutline,addOutline,calendarOutline,timeOutline,hourglassOutline,closeCircleOutline});
+    addIcons({logOutOutline,addOutline,calendarOutline,timeOutline,hourglassOutline,closeCircleOutline,pawOutline});
   }
 
   ngOnInit(): void {
@@ -123,6 +124,11 @@ export class AppointmentsPage implements OnInit {
 
   newBooking(): void {
     this.router.navigateByUrl('/service-selection');
+  }
+
+  /** Abre el perfil del tutor y la gestión de mascotas (Bonus 1). */
+  goToProfile(): void {
+    this.router.navigateByUrl('/profile');
   }
 
   /** Vibración sutil aislada en su propio método. Nunca propaga errores. */
