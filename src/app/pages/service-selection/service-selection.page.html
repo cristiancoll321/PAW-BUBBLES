@@ -26,14 +26,13 @@
         <div class="brand-mini">
           <div class="mini-logo">V&amp;B</div>
           <div class="brand-lines">
-            <span class="eyebrow">Velvet &amp; Blade</span>
-            <h1 class="page-title">Selección de Servicio y Estación</h1>
+            <span class="eyebrow">Paw &amp; Bubbles</span>
+            <h1 class="page-title">Servicios para tu canino</h1>
           </div>
         </div>
         <!-- El nombre solo se muestra si se pudo leer de vb_current_user -->
         <p class="page-desc">
-          Hola<ng-container *ngIf="userName">, {{ userName }}</ng-container>. Elige el servicio que deseas y la
-          estación o profesional de tu preferencia.
+          Hola<ng-container *ngIf="userName">, {{ userName }}</ng-container>. Elige el cuidado ideal y una cabina disponible para tu mascota.
         </p>
 
         <!-- Indicador de progreso. Cada <li> alterna 3 estados con clases:
@@ -66,18 +65,28 @@
         </ol>
       </header>
 
+      <button type="button" class="pets-link" (click)="router.navigateByUrl('/pets')">
+        <ion-icon name="paw-outline"></ion-icon>
+        <span>Administrar mis mascotas</span>
+        <ion-icon name="arrow-forward-outline"></ion-icon>
+      </button>
+
       <!-- ============================================================= -->
       <!-- 2. CONMUTADOR DE CATEGORÍA  ->  setCategory()                 -->
       <!-- ============================================================= -->
       <div class="category-switch">
-        <button type="button" class="cat-btn" [class.active]="activeCategory === 'barberia'"
-          (click)="setCategory('barberia')">
+        <button type="button" class="cat-btn" [class.active]="activeCategory === 'grooming'"
+          (click)="setCategory('grooming')">
           <ion-icon name="cut-outline"></ion-icon>
-          <span>Barbería de Autor</span>
+          <span>Grooming</span>
         </button>
-        <button type="button" class="cat-btn" [class.active]="activeCategory === 'unas'" (click)="setCategory('unas')">
-          <ion-icon name="color-palette-outline"></ion-icon>
-          <span>Spa de Uñas</span>
+        <button type="button" class="cat-btn" [class.active]="activeCategory === 'terapeutico'" (click)="setCategory('terapeutico')">
+          <ion-icon name="water-outline"></ion-icon>
+          <span>Spa terapéutico</span>
+        </button>
+        <button type="button" class="cat-btn" [class.active]="activeCategory === 'integral'" (click)="setCategory('integral')">
+          <ion-icon name="paw-outline"></ion-icon>
+          <span>Cuidado integral</span>
         </button>
       </div>
 

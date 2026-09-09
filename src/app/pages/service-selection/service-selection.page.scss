@@ -210,6 +210,26 @@
   }
 }
 
+.pets-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: calc(100% - 48px);
+  margin: 16px 24px 0;
+  padding: 11px 13px;
+  border: 1px solid #b7e7df;
+  border-radius: 12px;
+  background: #f0fdfa;
+  color: #0f766e;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: left;
+  cursor: pointer;
+
+  ion-icon:last-child { margin-left: auto; }
+}
+
 /* ---------- Bloques ---------- */
 .block {
   padding: 18px 24px 0;

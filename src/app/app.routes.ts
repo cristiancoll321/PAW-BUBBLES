@@ -4,6 +4,10 @@
  * Flujo previsto de pantallas:
  *
  *   ''  ─redirect─▶  /login  ──▶  /register
+  {
+    path: 'pets',
+    loadComponent: () => import('./pages/pets/pets.page').then(m => m.PetsPage)
+  },
  *                       │             │
  *                       └──────┬──────┘
  *                              ▼   (userType === 'cliente')
@@ -64,14 +68,6 @@ export const routes: Routes = [
     path: 'specialist-home',
     redirectTo: 'service-selection',
     pathMatch: 'full'
-  },
-  {
-    path: 'schedule',
-    loadComponent: () => import('./pages/schedule/schedule.page').then( m => m.SchedulePage)
-  },
-  {
-    path: 'appointments',
-    loadComponent: () => import('./pages/appointments/appointments.page').then( m => m.AppointmentsPage)
   },
   {
     path: 'test-standalone',

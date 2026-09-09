@@ -17,7 +17,7 @@ describe('SchedulePage', () => {
         serviceName: 'Corte de Precisión',
         durationMin: 45,
         price: '$45.000',
-        category: 'barberia',
+        category: 'grooming',
         stationName: 'Sillón 1',
         professional: 'Mateo Rivas',
       })

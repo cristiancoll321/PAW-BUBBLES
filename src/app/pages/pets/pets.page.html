@@ -1,0 +1,61 @@
+<ion-content [fullscreen]="true" class="pets-content">
+  <div class="pets-shell">
+    <header class="pets-header">
+      <ion-button type="button" fill="clear" class="back-button" (click)="goBack()" aria-label="Volver al catálogo">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <div class="header-copy">
+        <span class="eyebrow">Perfil del tutor</span>
+        <h1>Mis mascotas</h1>
+        <p>Hola<ng-container *ngIf="userName">, {{ userName }}</ng-container>. Guarda sus cuidados para que cada visita sea personal.</p>
+      </div>
+      <div class="header-mark"><ion-icon name="paw-outline"></ion-icon></div>
+    </header>
+
+    <main class="pets-main">
+      <section class="form-panel">
+        <div class="section-heading">
+          <div>
+            <span class="section-kicker">Ficha individual</span>
+            <h2>{{ editingId === null ? 'Registrar mascota' : 'Editar mascota' }}</h2>
+          </div>
+          <span class="required-note">* Datos requeridos</span>
+        </div>
+
+        <form (ngSubmit)="savePet()" class="pet-form">
+          <label>Nombre de tu canino *<input [(ngModel)]="form.name" name="name" placeholder="Ej. Bruno" required /></label>
+          <label>Raza *<input [(ngModel)]="form.breed" name="breed" placeholder="Ej. Golden Retriever" required /></label>
+          <div class="form-grid">
+            <label>Edad aproximada *<input [(ngModel)]="form.age" name="age" placeholder="Ej. 3 años" required /></label>
+            <label>Peso aproximado (kg) *<input [(ngModel)]="form.weight" name="weight" type="number" min="0" step="0.1" placeholder="12.5" required /></label>
+          </div>
+          <div class="form-grid">
+            <label>Talla
+              <select [(ngModel)]="form.size" name="size"><option>Pequeña</option><option>Mediana</option><option>Grande</option><option>Gigante</option></select>
+            </label>
+            <label>Temperamento
+              <select [(ngModel)]="form.temperament" name="temperament"><option>Tranquilo</option><option>Ansioso</option><option>Enérgico</option><option>Reactivo con otros canes</option></select>
+            </label>
+          </div>
+          <label>Observaciones especiales<textarea [(ngModel)]="form.notes" name="notes" rows="3" placeholder="Alergias, sensibilidad en piel o articulaciones..."></textarea></label>
+          <div class="form-actions">
+            <button type="button" class="secondary-action" *ngIf="editingId !== null" (click)="cancelEdit()">Cancelar</button>
+            <button type="submit" class="primary-action"><ion-icon [name]="editingId === null ? 'add-outline' : 'save-outline'"></ion-icon>{{ editingId === null ? 'Agregar mascota' : 'Guardar cambios' }}</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="list-panel">
+        <div class="section-heading">
+          <div><span class="section-kicker">Cuidado personalizado</span><h2>Mis fichas <span>{{ pets.length }}</span></h2></div>
+        </div>
+        <div class="empty-state" *ngIf="pets.length === 0"><ion-icon name="paw-outline"></ion-icon><strong>Aún no has registrado mascotas</strong><p>Completa la ficha para agilizar tu próxima reserva.</p></div>
+        <article class="pet-card" *ngFor="let pet of pets">
+          <div class="pet-avatar"><ion-icon name="paw-outline"></ion-icon></div>
+          <div class="pet-info"><h3>{{ pet.name }}</h3><p>{{ pet.breed }} · {{ pet.age }} · {{ pet.weight }} kg</p><div class="pet-tags"><span>{{ pet.size }}</span><span>{{ pet.temperament }}</span></div><small *ngIf="pet.notes">{{ pet.notes }}</small></div>
+          <div class="card-actions"><button type="button" aria-label="Editar mascota" (click)="editPet(pet)"><ion-icon name="create-outline"></ion-icon></button><button type="button" aria-label="Eliminar mascota" (click)="deletePet(pet)"><ion-icon name="trash-outline"></ion-icon></button></div>
+        </article>
+      </section>
+    </main>
+  </div>
+</ion-content>

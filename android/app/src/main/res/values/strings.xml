@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">velvet-blade</string>
-    <string name="title_activity_main">velvet-blade</string>
-    <string name="package_name">com.ucompensar.velvetblade</string>
-    <string name="custom_url_scheme">com.ucompensar.velvetblade</string>
+    <string name="app_name">Paw &amp; Bubbles Spa</string>
+    <string name="title_activity_main">Paw &amp; Bubbles Spa</string>
+    <string name="package_name">com.pawandbubbles.spa</string>
+    <string name="custom_url_scheme">com.pawandbubbles.spa</string>
 </resources>

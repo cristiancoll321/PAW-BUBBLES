@@ -42,18 +42,7 @@ export class LoginPage {
   isLoading = false;
 
   constructor(private readonly router: Router) {
-    addIcons({
-      mailOutline,
-      lockClosedOutline,
-      eyeOutline,
-      eyeOffOutline,
-      sparklesOutline,
-      arrowForwardOutline,
-      shieldCheckmarkOutline,
-      cutOutline,
-      colorPaletteOutline,
-      personOutline,
-    });
+    addIcons({sparklesOutline,cutOutline,colorPaletteOutline,personOutline,mailOutline,lockClosedOutline,shieldCheckmarkOutline,arrowForwardOutline,eyeOutline,eyeOffOutline,});
   }
 
   async triggerHaptic(): Promise<void> {
@@ -73,11 +62,11 @@ export class LoginPage {
     this.triggerHaptic();
 
     if (type === 'cliente') {
-      this.email = 'cliente.vip@velvetblade.com';
-      this.password = 'Velvet2026*';
+      this.email = 'tutor.demo@pawandbubbles.com';
+      this.password = 'Paw2026*';
     } else {
-      this.email = 'master.barber@velvetblade.com';
-      this.password = 'BladeMaster2026*';
+      this.email = 'recepcion@pawandbubbles.com';
+      this.password = 'PawSpa2026*';
     }
 
     this.errorMessage = '';
@@ -103,8 +92,8 @@ export class LoginPage {
     }
 
     const defaultAccounts: Record<string, { password: string; userType: 'cliente' | 'especialista'; fullName: string }> = {
-      'cliente.vip@velvetblade.com': { password: 'Velvet2026*', userType: 'cliente', fullName: 'Cliente VIP' },
-      'master.barber@velvetblade.com': { password: 'BladeMaster2026*', userType: 'especialista', fullName: 'Master Barber' },
+      'tutor.demo@pawandbubbles.com': { password: 'Paw2026*', userType: 'cliente', fullName: 'Tutor Demo' },
+      'recepcion@pawandbubbles.com': { password: 'PawSpa2026*', userType: 'especialista', fullName: 'Equipo Paw & Bubbles' },
     };
 
     let localUsers: Array<{ email: string; password: string; fullName?: string; userType?: 'cliente' | 'especialista' }> = [];

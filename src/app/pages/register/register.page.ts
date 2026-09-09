@@ -48,21 +48,7 @@ export class RegisterPage {
   isLoading: boolean = false;
 
   constructor(private readonly router: Router) {
-    addIcons({
-      personOutline,
-      callOutline,
-      mailOutline,
-      lockClosedOutline,
-      eyeOutline,
-      eyeOffOutline,
-      sparklesOutline,
-      checkmarkCircleOutline,
-      cutOutline,
-      colorPaletteOutline,
-      arrowForwardOutline,
-      shieldCheckmarkOutline,
-      starOutline
-    });
+    addIcons({sparklesOutline,checkmarkCircleOutline,starOutline,personOutline,cutOutline,callOutline,mailOutline,lockClosedOutline,shieldCheckmarkOutline,arrowForwardOutline,eyeOutline,eyeOffOutline,colorPaletteOutline});
   }
 
   async triggerHaptic() {
@@ -110,8 +96,8 @@ export class RegisterPage {
     }
 
     const defaultAccounts: string[] = [
-      'cliente.vip@velvetblade.com',
-      'master.barber@velvetblade.com'
+      'tutor.demo@pawandbubbles.com',
+      'recepcion@pawandbubbles.com'
     ];
 
     let localUsers: Array<{ email: string; password: string; fullName: string; phone: string; userType: string }> = [];

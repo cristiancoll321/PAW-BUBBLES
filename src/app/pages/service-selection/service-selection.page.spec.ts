@@ -34,9 +34,9 @@ describe('ServiceSelectionPage', () => {
   });
 
   it('debe filtrar servicios por la categoria activa', () => {
-    component.setCategory('unas');
+    component.setCategory('terapeutico');
     // Todos los servicios visibles deben pertenecer a la categoría pedida.
-    expect(component.filteredServices.every(s => s.category === 'unas')).toBe(true);
+    expect(component.filteredServices.every(s => s.category === 'terapeutico')).toBe(true);
   });
 
   it('al elegir servicio se limpia la estacion seleccionada', () => {

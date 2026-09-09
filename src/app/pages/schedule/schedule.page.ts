@@ -98,7 +98,7 @@ interface SelectedService {
   serviceName: string;
   durationMin: number;
   price: string;
-  category: 'barberia' | 'unas';
+  category: 'grooming' | 'terapeutico' | 'integral';
   stationName: string;
   professional: string;
 }
@@ -147,8 +147,9 @@ export class SchedulePage implements OnInit {
 
   /** Traducción categoría → etiqueta visible (para el resumen). */
   private readonly categoryLabels: Record<SelectedService['category'], string> = {
-    barberia: 'Barbería de Autor',
-    unas: 'Spa de Uñas'
+    grooming: 'Grooming & Estilismo',
+    terapeutico: 'Spa Terapéutico',
+    integral: 'Cuidado Integral'
   };
 
   // ---------------------------------------------------------------------------

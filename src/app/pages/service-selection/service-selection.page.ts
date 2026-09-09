@@ -43,6 +43,10 @@ import { addIcons } from 'ionicons';
 import {
   cutOutline,
   colorPaletteOutline,
+  waterOutline,
+  pawOutline,
+  earOutline,
+  medkitOutline,
   sparklesOutline,
   happyOutline,
   flameOutline,
@@ -63,7 +67,7 @@ import {
 import { Haptics, ImpactStyle } from '@capacitor/haptics';
 
 /** Las dos líneas de negocio del local. Se usa como clave de filtrado. */
-type Category = 'barberia' | 'unas';
+type Category = 'grooming' | 'terapeutico' | 'integral';
 
 /** Estado operativo de una estación en este momento. */
 type StationStatus = 'disponible' | 'ocupado';
@@ -122,8 +126,8 @@ export class ServiceSelectionPage implements OnInit {
   /** Nombre de pila del usuario para el saludo. Se rellena en ngOnInit desde localStorage. */
   userName = '';
 
-  /** Categoría actualmente activa en el selector superior. Arranca en "barberia". */
-  activeCategory: Category = 'barberia';
+  /** Categoría actualmente activa en el selector superior. Arranca en grooming. */
+  activeCategory: Category = 'grooming';
 
   /** Servicio elegido por el usuario. `null` = paso 1 aún sin completar. */
   selectedService: Service | null = null;
@@ -137,8 +141,9 @@ export class ServiceSelectionPage implements OnInit {
 
   /** Traducción Category → etiqueta visible. Evita repetir strings en el template. */
   readonly categoryLabels: Record<Category, string> = {
-    barberia: 'Barbería de Autor',
-    unas: 'Spa de Uñas'
+    grooming: 'Grooming & Estilismo',
+    terapeutico: 'Spa Terapéutico',
+    integral: 'Cuidado Integral'
   };
 
   /**
@@ -148,67 +153,85 @@ export class ServiceSelectionPage implements OnInit {
    */
   readonly services: Service[] = [
     {
-      id: 'corte-precision',
-      name: 'Corte de Precisión',
-      description: 'Corte de autor personalizado con acabado a navaja y styling final.',
-      durationMin: 45,
-      price: '$45.000',
-      category: 'barberia',
+      id: 'bano-hipoalergenico',
+      name: 'Baño hipoalergénico',
+      description: 'Limpieza suave con productos dermatológicamente amigables para piel sensible.',
+      durationMin: 60,
+      price: '$55.000',
+      category: 'grooming',
       icon: 'cut-outline'
     },
     {
-      id: 'perfilado-barba',
-      name: 'Perfilado de Barba',
-      description: 'Diseño de barba, alineado con toalla caliente y aceites nutritivos.',
-      durationMin: 30,
-      price: '$30.000',
-      category: 'barberia',
+      id: 'corte-raza',
+      name: 'Corte según estándar de raza',
+      description: 'Estilismo personalizado que respeta el manto, la silueta y las necesidades de cada raza.',
+      durationMin: 90,
+      price: '$85.000',
+      category: 'grooming',
       icon: 'sparkles-outline'
     },
     {
-      id: 'ritual-toalla',
-      name: 'Ritual de Toalla Caliente',
-      description: 'Afeitado clásico completo con vapor, toalla caliente y masaje facial.',
-      durationMin: 40,
-      price: '$38.000',
-      category: 'barberia',
-      icon: 'flame-outline'
+      id: 'deslanado',
+      name: 'Deslanado',
+      description: 'Retiro cuidadoso del subpelo y cepillado profundo para un manto más sano.',
+      durationMin: 75,
+      price: '$70.000',
+      category: 'grooming',
+      icon: 'brush-outline'
     },
     {
-      id: 'tratamiento-facial',
-      name: 'Tratamiento Facial',
-      description: 'Limpieza profunda, exfoliación e hidratación para piel de hombre.',
+      id: 'tina-ozonoterapia',
+      name: 'Tina de ozonoterapia',
+      description: 'Baño terapéutico con ozono para relajar, limpiar y revitalizar la piel.',
       durationMin: 50,
-      price: '$55.000',
-      category: 'barberia',
+      price: '$65.000',
+      category: 'terapeutico',
+      icon: 'sparkles-outline'
+    },
+    {
+      id: 'hidromasaje',
+      name: 'Hidromasaje relajante',
+      description: 'Sesión de agua tibia para favorecer la relajación muscular y el bienestar.',
+      durationMin: 45,
+      price: '$60.000',
+      category: 'terapeutico',
+      icon: 'water-outline'
+    },
+    {
+      id: 'mascarilla-hidratacion',
+      name: 'Mascarilla de hidratación dérmica',
+      description: 'Tratamiento calmante para hidratar profundamente y cuidar la barrera de la piel.',
+      durationMin: 40,
+      price: '$48.000',
+      category: 'terapeutico',
       icon: 'happy-outline'
     },
     {
-      id: 'manicura-rusa',
-      name: 'Manicura Rusa',
-      description: 'Trabajo de cutícula en seco con torno y esmaltado de larga duración.',
-      durationMin: 60,
-      price: '$50.000',
-      category: 'unas',
-      icon: 'hand-left-outline'
+      id: 'limado-unas',
+      name: 'Limado de uñas',
+      description: 'Corte y limado cuidadoso para mantener las uñas cómodas y saludables.',
+      durationMin: 20,
+      price: '$18.000',
+      category: 'integral',
+      icon: 'paw-outline'
     },
     {
-      id: 'pedicura-spa',
-      name: 'Pedicura Spa',
-      description: 'Inmersión aromática, exfoliación, masaje y esmaltado profesional.',
-      durationMin: 70,
-      price: '$60.000',
-      category: 'unas',
-      icon: 'footsteps-outline'
+      id: 'limpieza-oidos',
+      name: 'Limpieza del canal ótico',
+      description: 'Higiene externa delicada para prevenir acumulación y molestias.',
+      durationMin: 20,
+      price: '$20.000',
+      category: 'integral',
+      icon: 'ear-outline'
     },
     {
-      id: 'esmaltado-permanente',
-      name: 'Esmaltado Permanente',
-      description: 'Aplicación de esmalte semipermanente con secado LED y brillo espejo.',
-      durationMin: 45,
-      price: '$40.000',
-      category: 'unas',
-      icon: 'brush-outline'
+      id: 'profilaxis-superficial',
+      name: 'Profilaxis preventiva superficial',
+      description: 'Cuidado preventivo de la higiene oral sin sustituir la valoración veterinaria.',
+      durationMin: 25,
+      price: '$25.000',
+      category: 'integral',
+      icon: 'medkit-outline'
     }
   ];
 
@@ -223,8 +246,8 @@ export class ServiceSelectionPage implements OnInit {
       name: 'Sillón 1',
       professional: 'Mateo Rivas',
       initials: 'MR',
-      role: 'Barbero de Autor',
-      category: 'barberia',
+      role: 'Especialista en Grooming',
+      category: 'grooming',
       status: 'disponible',
       rating: 4.9
     },
@@ -233,8 +256,8 @@ export class ServiceSelectionPage implements OnInit {
       name: 'Sillón 2',
       professional: 'Julián Ossa',
       initials: 'JO',
-      role: 'Barber Senior',
-      category: 'barberia',
+      role: 'Estilista de raza',
+      category: 'grooming',
       status: 'disponible',
       rating: 4.8
     },
@@ -243,50 +266,54 @@ export class ServiceSelectionPage implements OnInit {
       name: 'Sillón 3',
       professional: 'Andrés Kem',
       initials: 'AK',
-      role: 'Especialista en Barba',
-      category: 'barberia',
+      role: 'Baño y deslanado',
+      category: 'grooming',
       status: 'ocupado',
       rating: 4.7
     },
     {
-      id: 'mesa-1',
-      name: 'Mesa 1',
+      id: 'cabina-1',
+      name: 'Cabina húmeda 1',
       professional: 'Valentina Ruiz',
       initials: 'VR',
-      role: 'Nail Artist Master',
-      category: 'unas',
+      role: 'Hidroterapia canina',
+      category: 'terapeutico',
       status: 'disponible',
       rating: 5.0
     },
     {
-      id: 'mesa-2',
-      name: 'Mesa 2',
+      id: 'cabina-2',
+      name: 'Cabina húmeda 2',
       professional: 'Camila Soto',
       initials: 'CS',
-      role: 'Manicurista Rusa',
-      category: 'unas',
+      role: 'Spa terapéutico',
+      category: 'terapeutico',
       status: 'ocupado',
       rating: 4.8
     },
     {
-      id: 'mesa-3',
-      name: 'Mesa 3',
+      id: 'estacion-1',
+      name: 'Estación de cuidado 1',
       professional: 'Daniela Franco',
       initials: 'DF',
-      role: 'Pedicura Spa',
-      category: 'unas',
+      role: 'Higiene integral',
+      category: 'integral',
       status: 'disponible',
       rating: 4.9
     }
   ];
 
-  constructor(private readonly router: Router) {
+  constructor(public readonly router: Router) {
     // Registro global de los iconos usados en el template. `addIcons` recibe un
     // objeto {claveCamelCase: valor}; en el HTML se referencian en kebab-case
     // (p. ej. `cutOutline` aquí ↔ name="cut-outline" en el template).
     addIcons({
       cutOutline,
       colorPaletteOutline,
+      waterOutline,
+      pawOutline,
+      earOutline,
+      medkitOutline,
       sparklesOutline,
       happyOutline,
       flameOutline,

@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.ucompensar.velvetblade',
-  appName: 'velvet-blade',
+  appId: 'com.pawandbubbles.spa',
+  appName: 'Paw & Bubbles Spa',
   webDir: 'www'
 };
 
