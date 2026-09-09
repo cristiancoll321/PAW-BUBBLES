@@ -1,94 +1,56 @@
-# Velvet & Blade
+gi# Paw & Bubbles Spa
 
-Aplicación híbrida de citas para barbería y spa de uñas, desarrollada con Angular + Ionic + Capacitor.
+Sistema móvil híbrido de gestión y bienestar canino, desarrollado con Angular, Ionic y Capacitor para el parcial práctico de Desarrollo de Aplicaciones Móviles Híbridas.
 
 ## Descripción general
 
-Velvet & Blade es una app de reserva de servicios que permite a un cliente:
+Paw & Bubbles Spa permite a los tutores:
 
-- iniciar sesión o registrarse,
-- seleccionar una categoría de servicio,
-- elegir un servicio y una estación/profesional disponible,
-- revisar el horario disponible,
-- confirmar una cita,
-- consultar sus servicios agendados.
+- iniciar sesión o registrarse;
+- consultar servicios de Grooming & Estilismo, Spa Terapéutico y Cuidado Integral;
+- seleccionar una cabina húmeda o estación de atención disponible;
+- revisar fechas y franjas horarias;
+- confirmar y cancelar reservas;
+- registrar y administrar una o varias mascotas desde su perfil.
 
-La aplicación está pensada como flujo de negocio de una barbería premium, con una UX visual orientada a lujo y una estructura modular por pantallas.
-
----
+La aplicación funciona actualmente con datos locales en `localStorage` y no requiere un backend para demostrar el flujo funcional.
 
 ## Stack tecnológico
 
-- Angular: 22.x
-- Ionic Framework: 9.x
-- Capacitor: 8.x
-- TypeScript: 6.x
-- RxJS: 7.x
-- Angular CLI: 22.x
-- Node.js: recomendado 22.22.3 o superior
-
-### Dependencias principales
-
-- `@angular/core`
-- `@angular/router`
-- `@ionic/angular`
-- `@capacitor/core`
-- `@capacitor/android`
-- `@capacitor/haptics`
-- `ionicons`
-
----
+- Angular 22.x
+- Ionic Framework 9.x
+- Capacitor 8.x
+- TypeScript 6.x
+- RxJS 7.x
+- Node.js 22.x
+- Android Studio para la ejecución nativa
 
 ## Requisitos previos
-
-Antes de ejecutar el proyecto asegúrate de tener instalado:
 
 - Node.js 22.x
 - npm 10.x o superior
 - Git
-- Android Studio (si quieres compilar para Android con Capacitor)
+- Android Studio y un emulador AVD o dispositivo Android físico
 
-Verifica la versión:
+Verificación:
 
 ```bash
 node -v
 npm -v
 ```
 
----
-
-## Instalación
-
-1. Clona el repositorio:
+## Instalación y ejecución web
 
 ```bash
 git clone https://github.com/TamperiG92/Entrega_hibridas.git
-git checkout desarrollo-cristian
-```
-
-2. Instala dependencias:
-
-```bash
+cd Entrega_hibridas
 npm install
-```
-
-3. Inicia la app en modo desarrollo:
-
-```bash
 npm start
 ```
 
-La aplicación quedará disponible normalmente en:
-
-```text
-http://localhost:4200/
-```
-
----
+La aplicación queda disponible normalmente en `http://localhost:4200/`.
 
 ## Scripts disponibles
-
-En el archivo `package.json` se incluyen los siguientes comandos:
 
 ```bash
 npm start          # ng serve
@@ -98,252 +60,142 @@ npm test           # ng test
 npm run lint       # ng lint
 ```
 
----
-
-## Arquitectura del proyecto
-
-```text
-velvet-blade/
-├── android/                     # proyecto Android nativo generado por Capacitor
-├── src/
-│   ├── app/
-│   │   ├── app.component.ts
-│   │   ├── app.routes.ts
-│   │   ├── app.module.ts
-│   │   ├── home/
-│   │   └── pages/
-│   │       ├── appointments/
-│   │       ├── login/
-│   │       ├── register/
-│   │       ├── schedule/
-│   │       ├── service-selection/
-│   │       └── test-standalone/
-│   ├── assets/
-│   ├── environments/
-│   ├── global.scss
-│   ├── main.ts
-│   ├── test-setup.ts
-│   └── theme/
-│       └── variables.scss
-├── angular.json
-├── capacitor.config.ts
-├── FLUJO-DE-DATOS.md
-├── PROGRESO-OSCAR.md
-├── package.json
-├── tsconfig.json
-├── tsconfig.app.json
-├── tsconfig.spec.json
-├── eslint.config.js
-├── ionic.config.json
-├── ionic.starter.json
-├── README.md
-└── www/                         # build generado por Angular
-```
-
----
-
 ## Flujo de pantallas
 
-La navegación principal está definida en `src/app/app.routes.ts`.
-
-### Flujo previsto
+La navegación está definida en `src/app/app.routes.ts`:
 
 ```text
-''  ->  /login  ->  /register
-                 \-> /service-selection -> /schedule -> /appointments
+/login
+  ├── /register
+  └── /service-selection
+        ├── /pets              (Bonus 1)
+        └── /schedule
+              └── /appointments
 ```
 
-### Pantallas principales
+### Pantallas implementadas
 
-1. Login
-   - autenticación local con usuarios en storage
-   - cuenta demo disponible para cliente y especialista
+1. **Inicio de sesión:** correo, contraseña, validaciones y acceso demo.
+2. **Registro del tutor:** nombre completo, teléfono, correo, contraseña y aceptación de términos.
+3. **Catálogo de servicios y cabinas:** Grooming, Spa Terapéutico y Cuidado Integral.
+4. **Horarios y disponibilidad:** selección de fecha, bloques disponibles, ocupados y reservados.
+5. **Agendados:** citas activas, cancelación e historial local.
+6. **Mis mascotas, Bonus 1:** registro de varias mascotas, edición, eliminación y observaciones especiales.
 
-2. Registro
-   - creación de usuario local
-   - validación de duplicados
+## Bonus 1: Registro y gestión de mascotas
 
-3. Selección de servicio y estación
-   - filtro por categoría: Barbería de Autor / Spa de Uñas
-   - elección de servicio y profesional/estación disponible
-   - resumen y avance al horario
+El módulo `/pets` permite guardar por tutor:
 
-4. Schedule / Horario
-   - revisión de disponibilidad
-   - selección de fecha y horario
-   - confirmación de la cita
+- nombre del canino;
+- raza;
+- edad aproximada;
+- talla: Pequeña, Mediana, Grande o Gigante;
+- peso aproximado en kilogramos;
+- temperamento: Tranquilo, Ansioso, Enérgico o Reactivo con otros canes;
+- observaciones especiales como alergias, sensibilidad en piel o articulaciones.
 
-5. Appointments / Agendados
-   - vista de citas activas
-   - historial de citas hardcodeado
+La información se persiste en `localStorage` con una clave asociada al correo del tutor.
 
----
+## Persistencia local
 
-## Modelo de datos y persistencia
+| Clave | Uso |
+| --- | --- |
+| `vb_users` | Usuarios registrados localmente |
+| `vb_current_user` | Sesión activa |
+| `vb_selected_service` | Servicio y cabina elegidos antes de agendar |
+| `vb_appointments` | Citas confirmadas |
+| `pb_pets_<correo>` | Mascotas registradas por tutor |
 
-Este proyecto no usa backend aún; el estado compartido vive en `localStorage` del navegador/WebView.
+## Requisitos Mandatorios del README
 
-Se documenta en detalle en `FLUJO-DE-DATOS.md`, pero aquí se resume:
+Las siguientes evidencias deben incorporarse en la entrega. Las imágenes deben ser capturas reales de la aplicación ejecutándose en navegador o Android; no se han generado imágenes ficticias dentro del repositorio.
 
-### Claves principales
+### A. Muestrario de pantallas de la aplicación
 
-- `vb_users`: lista de usuarios registrados
-- `vb_current_user`: sesión activa
-- `vb_selected_service`: servicio + estación seleccionados antes de confirmar
-- `vb_appointments`: citas confirmadas
+Agregar las capturas en `docs/evidencias/pantallas/` y enlazarlas en esta sección:
 
-### Regla clave
+| Evidencia | Archivo sugerido | Qué debe demostrar |
+| --- | --- | --- |
+| Login | `docs/evidencias/pantallas/01-login.png` | Campos de correo y contraseña, validación visual y marca Paw & Bubbles |
+| Registro del tutor | `docs/evidencias/pantallas/02-registro-tutor.png` | Formulario de nombre, teléfono, correo y contraseña |
+| Catálogo | `docs/evidencias/pantallas/03-catalogo-servicios.png` | Grooming, Spa Terapéutico, Cuidado Integral y selección de cabina |
+| Horarios | `docs/evidencias/pantallas/04-horarios-disponibilidad.png` | Fecha, bloques disponibles, reservados y ocupados |
+| Bonus 1 | `docs/evidencias/pantallas/05-mis-mascotas.png` | Registro y administración de fichas de mascotas |
 
-El router no transporta estado entre pantallas; la app persiste datos en `localStorage` y cada vista los reactiva en `ngOnInit()`.
+Cuando las imágenes estén disponibles, deben documentarse así:
 
----
+```markdown
+![Inicio de sesión](docs/evidencias/pantallas/01-login.png)
+![Registro del tutor](docs/evidencias/pantallas/02-registro-tutor.png)
+![Catálogo de servicios](docs/evidencias/pantallas/03-catalogo-servicios.png)
+![Horarios y disponibilidad](docs/evidencias/pantallas/04-horarios-disponibilidad.png)
+![Mis mascotas - Bonus 1](docs/evidencias/pantallas/05-mis-mascotas.png)
+```
 
-## Pantalla de selección de servicio
+El **Bonus 2**, correspondiente al seguimiento en vivo del canino, no forma parte de esta implementación.
 
-La pantalla `service-selection` es el punto central del flujo del cliente.
+### B. Evidencias de ejecución en Android Studio con Capacitor
 
-### Funcionalidades
+Agregar las capturas en `docs/evidencias/android/`:
 
-- selector de categoría
-- lista de servicios por categoría
-- duración y precio por servicio
-- selección de estación disponible
-- validación para evitar puestos ocupados
-- resumen final con "Continuar a Horario"
-- haptics con Capacitor en las interacciones
+| Evidencia | Archivo sugerido | Qué debe demostrar |
+| --- | --- | --- |
+| Proyecto Android Studio | `docs/evidencias/android/01-android-studio-proyecto.png` | Proyecto abierto, carpeta `android/` y archivo `build.gradle` |
+| Aplicación en AVD o dispositivo | `docs/evidencias/android/02-emulador-ejecucion.png` | Aplicación ejecutándose en un emulador o dispositivo físico |
+| Navegación nativa | `docs/evidencias/android/03-navegacion-emulador.png` | Navegación entre pantallas y responsividad Ionic |
 
-### Archivos relevantes
+## Capacitor y Android Studio
 
-- `src/app/pages/service-selection/service-selection.page.ts`
-- `src/app/pages/service-selection/service-selection.page.html`
-- `src/app/pages/service-selection/service-selection.page.scss`
-
----
-
-## Estilo visual
-
-La aplicación usa un sistema de diseño propio basado en variables globales declaradas en:
-
-- `src/theme/variables.scss`
-- `src/global.scss`
-
-Se utilizan variables como:
-
-- `--ion-color-primary`
-- `--vb-gradient-hero`
-- `--vb-gradient-crimson`
-- `--vb-card-border`
-- `--vb-shadow-luxury`
-- `--vb-radius-md`
-
-El estilo visual intenta seguir una estética premium con tonos cálidos, tonos vino y morado, plus a un enfoque tipo landing-page para reservación de servicios.
-
----
-
-## Configuración de Ionic y Angular
-
-La app se inicializa de forma standalone con `bootstrapApplication` en `src/main.ts`:
+La identificación nativa configurada en `capacitor.config.ts` es:
 
 ```ts
-bootstrapApplication(AppComponent, {
-  providers: [
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    provideIonicAngular(),
-    provideRouter(routes, withPreloading(PreloadAllModules), withComponentInputBinding()),
-  ],
-});
+appId: 'com.pawandbubbles.spa'
+appName: 'Paw & Bubbles Spa'
+webDir: 'www'
 ```
 
-Esto permite una arquitectura moderna con componentes standalone y rutas lazy-load.
-
----
-
-## Ejecución para Android
-
-Este proyecto está listo para trabajar con Capacitor.
-
-### Generar proyecto Android
+Comandos de sincronización y apertura:
 
 ```bash
-npx cap add android
-```
-
-### Abrir en Android Studio
-
-```bash
+npm run build
+npx cap sync android
 npx cap open android
 ```
 
-### Sincronizar cambios nativos
+En Android Studio se debe seleccionar un AVD o dispositivo conectado por depuración USB y ejecutar la aplicación con **Run**.
 
-```bash
-npx cap sync android
+## Arquitectura principal
+
+```text
+android/                         # proyecto Android nativo de Capacitor
+src/app/
+├── app.routes.ts                # rutas lazy-loaded
+├── pages/login/                 # autenticación
+├── pages/register/              # registro del tutor
+├── pages/service-selection/     # catálogo y selección de cabina
+├── pages/schedule/              # horarios y disponibilidad
+├── pages/appointments/          # citas activas e historial
+└── pages/pets/                  # Bonus 1: mascotas
+src/theme/variables.scss         # identidad visual Paw & Bubbles
+capacitor.config.ts              # configuración del paquete Android
 ```
 
----
+## Validación realizada
 
-## Variables de entorno y configuración
+- `npm run build`: compilación de producción exitosa.
+- `npm test -- --watch=false`: bundle de pruebas generado correctamente.
+- Persistencia local validada para usuarios, servicios, citas y mascotas.
 
-Actualmente la aplicación no usa un backend real ni un sistema de configuración externo. La lógica de negocio se mantiene en localStorage y en datos hardcodeados por pantalla.
+## Documentación adicional
 
-Archivos relevantes:
+- `FLUJO-DE-DATOS.md`: flujo y persistencia entre pantallas.
+- `PROGRESO-OSCAR.md`: avances y decisiones del proyecto.
+- `parcial.html`: requisitos funcionales y técnicos del parcial.
 
-- `src/environments/environment.ts`
-- `src/environments/environment.prod.ts`
+## Estado del proyecto
 
----
-
-## Documentación adicional del proyecto
-
-Además del README, el repositorio incluye documentación interna:
-
-- `FLUJO-DE-DATOS.md`: explicación detallada de persistencia y flujo del negocio
-- `PROGRESO-OSCAR.md`: estado de ejecución, avances y decisiones de implementación
-
-Es recomendable leer ambos documentos antes de continuar con cambios en el flujo o en la lógica de negocio.
-
----
-
-## Buenas prácticas y recomendaciones
-
-- Mantener versiones Angular al mismo nivel para evitar incompatibilidades.
-- Evitar mezclar rutas legacy y standalone sin criterio.
-- Preferir cambios sobre `localStorage` con validaciones defensivas.
-- Mantener cada pantalla con su estado propio y sincronización mínima con storage.
-- Revalidar la app con `npm run build` antes de subir cambios importantes.
-
----
-
-## Estado actual
-
-El proyecto se encuentra en una etapa funcional de flujo de negocio para agendamiento de servicios, con las pantallas principales implementadas y el flujo de localStorage documentado.
-
-Se puede considerar en una fase de:
-
-- validación funcional,
-- refinamiento visual,
-- preparación para backend real,
-- integración nativa Android y despliegue.
-
----
-
-## Roadmap sugerido
-
-1. Integrar backend real para usuarios, servicios y citas.
-2. Sustituir localStorage por API REST o Firebase.
-3. Añadir autenticación segura.
-4. Mejorar validaciones de horario y disponibilidad.
-5. Añadir notificaciones, pago y gestión de especialistas.
-6. Preparar despliegue para Android/iOS.
-
----
-
-## Créditos
-
-Proyecto conceptual y desarrollado para la marca Velvet & Blade.
-
----
+El flujo principal y el Bonus 1 están implementados. Queda pendiente incorporar al repositorio las capturas reales de la ejecución web y Android indicadas en la sección de evidencias.
 
 ## Licencia
 
-Este proyecto no incluye una licencia explícita definida en el repositorio en este momento. Se recomienda definir una antes de un despliegue o entrega a terceros.
+Este proyecto no incluye una licencia explícita definida en el repositorio.
