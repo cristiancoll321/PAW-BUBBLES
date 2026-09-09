@@ -20,10 +20,15 @@
       <ion-card-header>
         <div class="section-header">
           <ion-card-title>Activas</ion-card-title>
-          <ion-button type="button" fill="clear" class="mini-button" (click)="newBooking()">
-            <ion-icon slot="start" name="add-outline"></ion-icon>
-            Nueva
-          </ion-button>
+          <div class="section-actions">
+            <ion-button type="button" fill="clear" class="mini-button" (click)="openTracking()">
+              Seguimiento
+            </ion-button>
+            <ion-button type="button" fill="clear" class="mini-button" (click)="newBooking()">
+              <ion-icon slot="start" name="add-outline"></ion-icon>
+              Nueva
+            </ion-button>
+          </div>
         </div>
       </ion-card-header>
       <ion-card-content>

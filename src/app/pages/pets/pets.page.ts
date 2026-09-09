@@ -31,7 +31,7 @@ export class PetsPage implements OnInit {
   userName = '';
 
   constructor(private readonly router: Router) {
-    addIcons({arrowBackOutline,pawOutline,pawOutline,pawOutline,createOutline,trashOutline,addOutline,saveOutline});
+    addIcons({ arrowBackOutline, pawOutline, createOutline, trashOutline, addOutline, saveOutline });
   }
 
   ngOnInit(): void {

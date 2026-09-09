@@ -4,10 +4,6 @@
  * Flujo previsto de pantallas:
  *
  *   ''  ─redirect─▶  /login  ──▶  /register
-  {
-    path: 'pets',
-    loadComponent: () => import('./pages/pets/pets.page').then(m => m.PetsPage)
-  },
  *                       │             │
  *                       └──────┬──────┘
  *                              ▼   (userType === 'cliente')
@@ -61,6 +57,14 @@ export const routes: Routes = [
     // Lee vb_appointments (lo escribe el Punto D). "Nueva" vuelve al Punto C.
     path: 'appointments',
     loadComponent: () => import('./pages/appointments/appointments.page').then(m => m.AppointmentsPage)
+  },
+  {
+    path: 'pets',
+    loadComponent: () => import('./pages/pets/pets.page').then(m => m.PetsPage)
+  },
+  {
+    path: 'tracking',
+    loadComponent: () => import('./pages/tracking/tracking.page').then(m => m.TrackingPage)
   },
   {
     // Home del perfil "Especialista" — pantalla no incluida en el alcance actual.

@@ -125,6 +125,10 @@ export class AppointmentsPage implements OnInit {
     this.router.navigateByUrl('/service-selection');
   }
 
+  openTracking(): void {
+    this.router.navigateByUrl('/tracking');
+  }
+
   /** Vibración sutil aislada en su propio método. Nunca propaga errores. */
   private async triggerHaptic(): Promise<void> {
     try {

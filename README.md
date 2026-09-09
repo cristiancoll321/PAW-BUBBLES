@@ -81,6 +81,7 @@ La navegación está definida en `src/app/app.routes.ts`:
 4. **Horarios y disponibilidad:** selección de fecha, bloques disponibles, ocupados y reservados.
 5. **Agendados:** citas activas, cancelación e historial local.
 6. **Mis mascotas, Bonus 1:** registro de varias mascotas, edición, eliminación y observaciones especiales.
+7. **Seguimiento en vivo, Bonus 2:** fase actual del tratamiento, avance entre etapas e historial de visitas.
 
 ## Bonus 1: Registro y gestión de mascotas
 
@@ -95,6 +96,17 @@ El módulo `/pets` permite guardar por tutor:
 - observaciones especiales como alergias, sensibilidad en piel o articulaciones.
 
 La información se persiste en `localStorage` con una clave asociada al correo del tutor.
+
+## Bonus 2: Historial y seguimiento en vivo
+
+El módulo `/tracking` permite seleccionar una mascota y consultar su estado operativo en cuatro fases:
+
+1. **En Recepción:** espera y pesaje inicial.
+2. **En Hidroterapia:** tina y ozonoterapia.
+3. **En Estilismo:** secado y corte de raza.
+4. **Listo para Entrega:** permanencia en la zona lounge.
+
+La pantalla incluye un indicador visual de progreso, estado actual marcado como **En vivo**, avance de demostración entre fases y un historial de visitas con fecha, servicio realizado y valor cancelado. Se accede desde **Seguimiento** en la pantalla de citas.
 
 ## Persistencia local
 
@@ -121,6 +133,7 @@ Agregar las capturas en `docs/evidencias/pantallas/` y enlazarlas en esta secci�
 | Catálogo | `docs/evidencias/pantallas/03-catalogo-servicios.png` | Grooming, Spa Terapéutico, Cuidado Integral y selección de cabina |
 | Horarios | `docs/evidencias/pantallas/04-horarios-disponibilidad.png` | Fecha, bloques disponibles, reservados y ocupados |
 | Bonus 1 | `docs/evidencias/pantallas/05-mis-mascotas.png` | Registro y administración de fichas de mascotas |
+| Bonus 2 | `docs/evidencias/pantallas/06-seguimiento-canino.png` | Fases del tratamiento e historial de servicios |
 
 Cuando las imágenes estén disponibles, deben documentarse así:
 
@@ -130,9 +143,8 @@ Cuando las imágenes estén disponibles, deben documentarse así:
 ![Catálogo de servicios](docs/evidencias/pantallas/03-catalogo-servicios.png)
 ![Horarios y disponibilidad](docs/evidencias/pantallas/04-horarios-disponibilidad.png)
 ![Mis mascotas - Bonus 1](docs/evidencias/pantallas/05-mis-mascotas.png)
+![Seguimiento canino - Bonus 2](docs/evidencias/pantallas/06-seguimiento-canino.png)
 ```
-
-El **Bonus 2**, correspondiente al seguimiento en vivo del canino, no forma parte de esta implementación.
 
 ### B. Evidencias de ejecución en Android Studio con Capacitor
 
@@ -194,7 +206,7 @@ capacitor.config.ts              # configuración del paquete Android
 
 ## Estado del proyecto
 
-El flujo principal y el Bonus 1 están implementados. Queda pendiente incorporar al repositorio las capturas reales de la ejecución web y Android indicadas en la sección de evidencias.
+El flujo principal, el Bonus 1 y el Bonus 2 están implementados. Queda pendiente incorporar al repositorio las capturas reales de la ejecución web y Android indicadas en la sección de evidencias.
 
 ## Licencia
 

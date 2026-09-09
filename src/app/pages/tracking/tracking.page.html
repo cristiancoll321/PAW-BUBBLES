@@ -1,0 +1,36 @@
+<ion-content [fullscreen]="true" class="tracking-content">
+  <div class="tracking-shell">
+    <header class="tracking-header">
+      <ion-button type="button" fill="clear" class="back-button" (click)="goBack()" aria-label="Volver a mis citas">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <div>
+        <span class="eyebrow">Seguimiento en vivo</span>
+        <h1>Bienestar de tu canino</h1>
+        <p>Hola<ng-container *ngIf="userName">, {{ userName }}</ng-container>. Consulta el avance del tratamiento.</p>
+      </div>
+    </header>
+
+    <main class="tracking-main">
+      <section class="pet-selector" *ngIf="pets.length > 0; else noPets">
+        <div class="section-heading"><div><span class="kicker">Paciente seleccionado</span><h2>¿A quién estamos cuidando?</h2></div><ion-icon name="paw-outline"></ion-icon></div>
+        <div class="pet-tabs"><button type="button" *ngFor="let pet of pets" [class.active]="selectedPetId === pet.id" (click)="setPet(pet.id)"><ion-icon name="paw-outline"></ion-icon>{{ pet.name }}</button></div>
+        <p class="pet-context" *ngIf="selectedPet">{{ selectedPet.breed }} · {{ selectedPet.size }} · {{ selectedPet.weight }} kg</p>
+      </section>
+      <ng-template #noPets><section class="empty-panel"><ion-icon name="paw-outline"></ion-icon><h2>Registra una mascota para ver su seguimiento</h2><button type="button" class="primary-action" (click)="goToPets()">Ir a Mis mascotas</button></section></ng-template>
+
+      <section class="status-panel" *ngIf="pets.length > 0">
+        <div class="section-heading"><div><span class="kicker">Estado actual</span><h2>{{ currentStage.title }}</h2><p>{{ currentStage.detail }}</p></div><span class="live-pill"><span></span> En vivo</span></div>
+        <div class="progress-track"><div class="progress-fill" [style.width.%]="(activeStage / (stages.length - 1)) * 100"></div></div>
+        <div class="stage-list"><article *ngFor="let stage of stages; let index = index" [class.active]="index === activeStage" [class.done]="index < activeStage" [class]="'stage-card ' + stage.color"><div class="stage-icon"><ion-icon [name]="stage.icon"></ion-icon></div><div><strong>{{ index + 1 }}. {{ stage.title }}</strong><span>{{ stage.detail }}</span></div><ion-icon *ngIf="index < activeStage" class="stage-check" name="checkmark-circle-outline"></ion-icon></article></div>
+        <button type="button" class="advance-button" *ngIf="activeStage < stages.length - 1" (click)="advanceStage()">Simular siguiente fase <ion-icon name="time-outline"></ion-icon></button>
+        <div class="ready-message" *ngIf="activeStage === stages.length - 1"><ion-icon name="checkmark-circle-outline"></ion-icon> Tu mascota está lista para la entrega.</div>
+      </section>
+
+      <section class="history-panel">
+        <div class="section-heading"><div><span class="kicker">Visitas anteriores</span><h2>Historial de servicios</h2></div><ion-icon name="calendar-outline"></ion-icon></div>
+        <article class="visit-row" *ngFor="let visit of visits"><div class="visit-icon"><ion-icon name="calendar-outline"></ion-icon></div><div class="visit-copy"><strong>{{ visit.service }}</strong><span>{{ visit.date }}</span></div><b>{{ visit.value }}</b></article>
+      </section>
+    </main>
+  </div>
+</ion-content>
