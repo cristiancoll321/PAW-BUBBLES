@@ -1,4 +1,4 @@
-gi# Paw & Bubbles Spa
+# Paw & Bubbles Spa
 
 Sistema móvil híbrido de gestión y bienestar canino, desarrollado con Angular, Ionic y Capacitor para el parcial práctico de Desarrollo de Aplicaciones Móviles Híbridas.
 
